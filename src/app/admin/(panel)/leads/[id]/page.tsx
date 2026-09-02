@@ -57,7 +57,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
       <div className="grid2">
         <div className="panel">
           <h2>Lead details</h2>
-          <table className="data" style={{ marginTop: 12 }}>
+          <div className="table-scroll" style={{ marginTop: 12 }}><table className="data">
             <tbody>
               <Row label="Phone">
                 <a href={`tel:${lead.phone}`}>{lead.phone}</a> ·{" "}
@@ -78,12 +78,12 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
                 </span>
               </Row>
             </tbody>
-          </table>
+          </table></div>
         </div>
 
         <div className="panel">
           <h2>Attribution</h2>
-          <table className="data" style={{ marginTop: 12 }}>
+          <div className="table-scroll" style={{ marginTop: 12 }}><table className="data">
             <tbody>
               <Row label="utm_source">{lead.utm_source || "—"}</Row>
               <Row label="utm_medium">{lead.utm_medium || "—"}</Row>
@@ -102,7 +102,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
                 {lead.mail_status === "sent" ? "Sent" : lead.mail_status === "failed" ? "Failed" : "Pending"}
               </Row>
             </tbody>
-          </table>
+          </table></div>
 
           <form action={resendLeadEmailAction} style={{ marginTop: 14 }}>
             <input type="hidden" name="id" value={lead.id} />

@@ -90,6 +90,7 @@ export default function LeadsTable({ leads }: { leads: LeadRow[] }) {
         </div>
       ) : null}
 
+      <div className="table-scroll">
       <table className="data leads-table">
         <thead>
           <tr>
@@ -244,6 +245,7 @@ export default function LeadsTable({ leads }: { leads: LeadRow[] }) {
           })}
         </tbody>
       </table>
+      </div>
     </>
   );
 }

@@ -169,7 +169,7 @@ export default async function DashboardPage({
           <h2>Traffic sources</h2>
           <p className="hint">Based on the utm_source parameter in the campaign link</p>
           {sources.length ? (
-            <table className="data">
+            <div className="table-scroll"><table className="data">
               <thead>
                 <tr>
                   <th>Source</th>
@@ -188,7 +188,7 @@ export default async function DashboardPage({
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table></div>
           ) : (
             <p className="empty">No data yet</p>
           )}
@@ -197,7 +197,7 @@ export default async function DashboardPage({
         <div className="panel">
           <h2>Leads by status</h2>
           <p className="hint">Within the selected range</p>
-          <table className="data">
+          <div className="table-scroll"><table className="data">
             <tbody>
               {LEAD_STATUSES.map((status) => (
                 <tr key={status.value}>
@@ -210,7 +210,7 @@ export default async function DashboardPage({
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
 
@@ -220,7 +220,7 @@ export default async function DashboardPage({
           <Link href="/admin/leads">See all leads →</Link>
         </p>
         {recent.length ? (
-          <table className="data">
+          <div className="table-scroll"><table className="data">
             <tbody>
               {recent.map((lead) => {
                 const status = LEAD_STATUSES.find((item) => item.value === lead.status);
@@ -242,7 +242,7 @@ export default async function DashboardPage({
                 );
               })}
             </tbody>
-          </table>
+          </table></div>
         ) : (
           <p className="empty">No leads yet</p>
         )}

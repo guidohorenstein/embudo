@@ -78,6 +78,10 @@ button, input, select, textarea { font: inherit; }
 .about-detail { position: absolute; width: 46%; height: 240px; left: -35px; bottom: -35px; border: 10px solid var(--paper); filter: grayscale(1); overflow: hidden; }
 .cover { object-fit: cover; }
 .about-stamp { position: absolute; top: -28px; right: -28px; width: 118px; aspect-ratio: 1; display: grid; place-items: center; padding: 10px; border-radius: 50%; background: var(--red); color: #fff; text-align: center; font-size: .78rem; font-weight: 800; line-height: 1.25; transform: rotate(8deg); }
+/* El sello vuela 28px fuera de su columna. Eso solo entra cuando el contenedor
+   ya toco su ancho maximo y sobra margen a los costados; por debajo de eso se
+   salia de la pantalla. */
+@media (max-width: 1240px) { .about-stamp { right: 0; } }
 .about .section-copy { color: #58534d; }
 .about-list { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 32px 0 38px; padding: 0; list-style: none; }
 .about-list li { border-top: 1px solid #bdb6ad; padding-top: 13px; font-weight: 700; }

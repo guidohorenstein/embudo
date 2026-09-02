@@ -71,7 +71,15 @@ export default async function LeadsPage({
     utm_medium: lead.utm_medium,
     utm_campaign: lead.utm_campaign,
     mailFailed: lead.mail_status === "failed",
-    createdLabel: new Date(lead.created_at).toLocaleString(LOCALE, { timeZone: TZ }),
+    // Formato corto: la fecha completa esta en la ficha del lead, y en el listado
+    // una columna larga empujaba el ancho de toda la tabla.
+    createdLabel: new Date(lead.created_at).toLocaleString(LOCALE, {
+      timeZone: TZ,
+      day: "2-digit",
+      month: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
   }));
 
   const pages = Math.max(1, Math.ceil(count / PAGE_SIZE));

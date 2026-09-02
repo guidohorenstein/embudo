@@ -11,7 +11,7 @@
   font-family: var(--font-body), "Assistant", sans-serif;
 }
 
-.admin-shell { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
+.admin-shell { display: grid; grid-template-columns: clamp(210px, 17vw, 260px) 1fr; min-height: 100vh; }
 
 .admin-side {
   background: #0d0d0d;
@@ -50,8 +50,10 @@
 .admin-side button.logout:hover { border-color: var(--a-red); color: #fff; }
 .admin-side .view-site { color: #8d8a84; font-size: .82rem; }
 
-/* min-width: 0 evita que una tabla ancha estire la columna del grid */
-.admin-main { padding: 30px 34px 70px; max-width: 1100px; min-width: 0; }
+/* min-width: 0 evita que una tabla ancha estire la columna del grid.
+   El ancho maximo es alto a proposito: es un panel de trabajo, no un texto
+   para leer de corrido, y a 1920px un tope de 1100 dejaba 320px muertos. */
+.admin-main { padding: 30px clamp(16px, 2.2vw, 40px) 70px; width: 100%; max-width: 1600px; margin-inline: auto; min-width: 0; }
 .admin-side { min-width: 0; }
 .admin-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
 .admin-head h1 { margin: 0; font-size: 1.7rem; letter-spacing: -.02em; }
@@ -107,6 +109,9 @@
   padding: 14px 0;
 }
 
+/* Las tablas anchas scrollean dentro de su contenedor, nunca empujan la pagina. */
+.table-scroll { width: 100%; overflow-x: auto; border-radius: 10px; }
+.table-scroll table.data { border-radius: 0; }
 table.data { width: 100%; border-collapse: collapse; background: var(--a-panel); border-radius: 10px; overflow: hidden; }
 table.data th, table.data td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--a-line); font-size: .92rem; }
 table.data th { background: #efece7; font-size: .8rem; letter-spacing: .04em; color: var(--a-muted); }
@@ -176,7 +181,7 @@ table.data a.row-link { font-weight: 700; }
   .cards { grid-template-columns: 1fr 1fr; }
   .filters .f input, .filters .f select { min-width: 0; width: 100%; }
   .filters .f { flex: 1 1 140px; }
-  table.data { display: block; overflow-x: auto; white-space: nowrap; }
+  .leads-table { min-width: 720px; }
 }
 
 
@@ -240,3 +245,32 @@ table.data a.row-link { font-weight: 700; }
 .toggle { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-weight: 700; font-size: .9rem; cursor: pointer; }
 .toggle input { width: 17px; height: 17px; accent-color: var(--a-red); cursor: pointer; }
 .panel code { background: #efece7; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+
+/* ---------- Rangos intermedios ----------
+   El unico corte en 860px dejaba tres columnas apretadas entre 860 y 1150. */
+
+@media (max-width: 1150px) {
+  .grid3 { grid-template-columns: 1fr 1fr; }
+  .details { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 620px) {
+  .cards { grid-template-columns: 1fr; }
+  .admin-head { flex-direction: column; align-items: stretch; gap: 10px; }
+  .admin-head .filters { margin-bottom: 0; }
+  .panel { padding: 18px 16px; }
+  .thumbs { grid-template-columns: 1fr; }
+  .img-field { flex-direction: column; }
+  .img-field .preview { width: 100%; height: 150px; }
+  .bulk-bar { flex-direction: column; align-items: stretch; }
+  .bulk-bar .btn-a { width: 100%; }
+  .filters { flex-direction: column; align-items: stretch; }
+  .filters .btn-a { width: 100%; }
+  .sticky-save { flex-wrap: wrap; }
+  .crop-modal { padding: 14px; border-radius: 10px; }
+  .crop-head { gap: 10px; }
+  .crop-presets { width: 100%; overflow-x: auto; padding-bottom: 4px; }
+  .crop-presets .btn-a { flex: none; }
+  .crop-foot { flex-direction: column; }
+  .crop-foot .btn-a { width: 100%; }
+}

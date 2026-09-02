@@ -7,3 +7,6 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# log del servidor de desarrollo
+dev.log
