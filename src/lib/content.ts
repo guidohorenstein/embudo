@@ -123,9 +123,11 @@ export const DEFAULT_CONTENT: SiteContent = {
     },
     socials: [
       { id: "s1", label: "IG", url: "https://instagram.com/" },
-      { id: "s2", label: "FB", url: "https://facebook.com/" },
-      { id: "s3", label: "TT", url: "https://tiktok.com/" },
+      { id: "s2", label: "FB", url: "https://www.facebook.com/zenhouse.tattoo/" },
+      { id: "s3", label: "TT", url: "https://www.tiktok.com/@zenhouse.tattoo" },
     ],
+    mapUrl: "https://maps.app.goo.gl/uzXdguH5oDgYAsC76",
+    quoteUrl: "https://www.zenhousetattoo.com/style",
     notifyEmails: "daginstruments@gmail.com",
   },
   tracking: {
@@ -240,6 +242,7 @@ export const DEFAULT_CONTENT: SiteContent = {
       rights: { he: "כל הזכויות שמורות.", en: "All rights reserved." },
       credit: { he: "עיצוב והקמה: Guido Horenstein", en: "Design and build: Guido Horenstein" },
       bookCta: { he: "קביעת ייעוץ", en: "Book a consultation" },
+      quoteLabel: { he: "מחשבון מחיר לקעקוע ←", en: "Tattoo price estimate →" },
     },
   },
   emails: {

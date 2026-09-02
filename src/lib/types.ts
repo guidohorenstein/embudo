@@ -95,6 +95,10 @@ export type SiteContent = {
     whatsappNumber: string;
     whatsappMessage: L;
     socials: SocialLink[];
+    /** Enlace a Google Maps. Si esta vacio, la direccion se muestra como texto. */
+    mapUrl: string;
+    /** Pagina externa donde el estudio cotiza tatuajes. */
+    quoteUrl: string;
     notifyEmails: string;
   };
   tracking: {
@@ -138,6 +142,7 @@ export type SiteContent = {
       rights: L;
       credit: L;
       bookCta: L;
+      quoteLabel: L;
     };
   };
   emails: {

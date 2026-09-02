@@ -169,7 +169,14 @@ export default async function Landing({ lang }: { lang: Lang }) {
                   <b>{t(ui.contactLabels.email, lang)}</b> {contact.email}
                 </a>
                 <span>
-                  <b>{t(ui.contactLabels.address, lang)}</b> {t(contact.address, lang)}
+                  <b>{t(ui.contactLabels.address, lang)}</b>{" "}
+                  {contact.mapUrl ? (
+                    <a href={contact.mapUrl} target="_blank" rel="noopener">
+                      {t(contact.address, lang)}
+                    </a>
+                  ) : (
+                    t(contact.address, lang)
+                  )}
                 </span>
               </div>
             </div>
@@ -233,11 +240,25 @@ export default async function Landing({ lang }: { lang: Lang }) {
               <div className="footer-links">
                 <a href={telHref}>{contact.phone}</a>
                 <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                <span>{t(contact.address, lang)}</span>
+                {contact.mapUrl ? (
+                  <a href={contact.mapUrl} target="_blank" rel="noopener">
+                    {t(contact.address, lang)}
+                  </a>
+                ) : (
+                  <span>{t(contact.address, lang)}</span>
+                )}
                 <span>{t(contact.hours, lang)}</span>
               </div>
             </div>
           </div>
+          {contact.quoteUrl ? (
+            <div className="footer-quote">
+              <a href={contact.quoteUrl} target="_blank" rel="noopener">
+                {t(ui.footer.quoteLabel, lang)}
+              </a>
+            </div>
+          ) : null}
+
           <div className="footer-bottom">
             <span>
               © {new Date().getFullYear()} {brand.fullName}. {t(ui.footer.rights, lang)}

@@ -132,7 +132,7 @@ button, input, select, textarea { font: inherit; }
 
 /* Footer */
 .footer { padding: 70px 0 25px; background: #070707; }
-.footer-grid { display: grid; grid-template-columns: 1.2fr .8fr .8fr 1fr; gap: 50px; padding-bottom: 55px; }
+.footer-grid { display: grid; grid-template-columns: 1.2fr .8fr .8fr 1fr; gap: 50px; padding-bottom: 40px; }
 .footer-logo strong { font: 2.5rem var(--font-display), "Bebas Neue", sans-serif; letter-spacing: .13em; }
 .footer-logo p { color: var(--muted); max-width: 280px; }
 .footer h4 { font-size: .85rem; color: #f3f0eb; margin: 8px 0 20px; }
@@ -398,3 +398,19 @@ html.a11y-contrast .legal-body a { color: #ff0; }
 }
 .socials a:hover { background: rgba(255, 255, 255, .14); border-color: rgba(255, 255, 255, .35); transform: translateY(-2px); }
 .social-text { font-weight: 800; font-size: .75rem; }
+
+/* Enlace a la pagina de presupuesto, al pie de todo */
+.footer-quote { border-top: 1px solid var(--line); padding-top: 26px; text-align: center; }
+.footer-quote a {
+  display: inline-block;
+  padding: 13px 30px;
+  border: 1px solid var(--red);
+  color: #fff;
+  font-weight: 800;
+  font-size: .95rem;
+  transition: background .25s ease, color .25s ease;
+}
+.footer-quote a:hover { background: var(--red); }
+.footer-quote + .footer-bottom { margin-top: 26px; }
+
+html.a11y-contrast .footer-quote a { border-color: #ff0; color: #ff0; }
