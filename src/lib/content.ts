@@ -310,13 +310,19 @@ export const getContent = cache(async function getContent(): Promise<SiteContent
   }
 });
 
-/** Marca de la ultima escritura, para detectar ediciones simultaneas. */
+/**
+ * Marca de la ultima escritura, para detectar ediciones simultaneas.
+ *
+ * Se pide como texto y se compara como texto: Postgres guarda microsegundos y
+ * el Date de JavaScript solo llega al milisegundo, asi que convertirlo perdia
+ * precision y toda comparacion daba distinto.
+ */
 export async function getContentVersion(): Promise<string> {
   try {
-    const rows = await sql<{ updated_at: Date }[]>`
-      select updated_at from content where key = 'site'
+    const rows = await sql<{ version: string }[]>`
+      select updated_at::text as version from content where key = 'site'
     `;
-    return rows.length ? new Date(rows[0].updated_at).toISOString() : "";
+    return rows.length ? rows[0].version : "";
   } catch {
     return "";
   }
@@ -332,22 +338,22 @@ export async function saveContent(
   expectedVersion: string,
 ): Promise<{ ok: true; version: string } | { ok: false; reason: "conflict" }> {
   if (!expectedVersion) {
-    const rows = await sql<{ updated_at: Date }[]>`
+    const rows = await sql<{ version: string }[]>`
       insert into content (key, value, updated_at)
       values ('site', ${sql.json(next as never)}, now())
       on conflict (key) do nothing
-      returning updated_at
+      returning updated_at::text as version
     `;
     if (!rows.length) return { ok: false, reason: "conflict" };
-    return { ok: true, version: new Date(rows[0].updated_at).toISOString() };
+    return { ok: true, version: rows[0].version };
   }
 
-  const rows = await sql<{ updated_at: Date }[]>`
+  const rows = await sql<{ version: string }[]>`
     update content
     set value = ${sql.json(next as never)}, updated_at = now()
-    where key = 'site' and updated_at = ${expectedVersion}::timestamptz
-    returning updated_at
+    where key = 'site' and updated_at::text = ${expectedVersion}
+    returning updated_at::text as version
   `;
   if (!rows.length) return { ok: false, reason: "conflict" };
-  return { ok: true, version: new Date(rows[0].updated_at).toISOString() };
+  return { ok: true, version: rows[0].version };
 }
