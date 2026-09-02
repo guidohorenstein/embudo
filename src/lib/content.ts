@@ -238,7 +238,7 @@ export const DEFAULT_CONTENT: SiteContent = {
       important: { he: "פרטים חשובים", en: "Good to know" },
       talk: { he: "דברו איתנו", en: "Get in touch" },
       rights: { he: "כל הזכויות שמורות.", en: "All rights reserved." },
-      credit: { he: "עיצוב והקמה: EX Advertising", en: "Design and build: EX Advertising" },
+      credit: { he: "עיצוב והקמה: Guido Horenstein", en: "Design and build: Guido Horenstein" },
       bookCta: { he: "קביעת ייעוץ", en: "Book a consultation" },
     },
   },

@@ -6,7 +6,9 @@ import { track } from "@/lib/client-tracking";
 import { t, UI, type Lang } from "@/lib/i18n";
 import type { GalleryItem } from "@/lib/types";
 
-const PRIMERAS = 6;
+// La primera pieza ocupa dos filas de la grilla: con cinco queda cerrada,
+// con seis sobra una sola imagen en una fila nueva.
+const PRIMERAS = 5;
 
 export default function Gallery({
   lang,
