@@ -3,11 +3,9 @@
 import { useRef, useState } from "react";
 import { captureAttribution, getVisitorId, track } from "@/lib/client-tracking";
 
-const STYLES = ["עדיין לא בטוח/ה", "פיין ליין", "בלאקוורק", "ריאליזם", "קאבר"];
-
 type State = { kind: "idle" | "sending" | "sent" | "error"; message?: string };
 
-export default function LeadForm() {
+export default function LeadForm({ styles }: { styles: string[] }) {
   const [state, setState] = useState<State>({ kind: "idle" });
   const started = useRef(false);
 
@@ -75,8 +73,8 @@ export default function LeadForm() {
         </div>
         <div className="field">
           <label htmlFor="style">סגנון מועדף</label>
-          <select id="style" name="style" defaultValue={STYLES[0]}>
-            {STYLES.map((style) => (
+          <select id="style" name="style" defaultValue={styles[0]}>
+            {styles.map((style) => (
               <option key={style}>{style}</option>
             ))}
           </select>

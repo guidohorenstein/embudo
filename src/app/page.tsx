@@ -39,14 +39,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page() {
   const content = await getContent();
-  const { brand, hero, about, gallery, contact, tracking } = content;
+  const { brand, hero, about, gallery, contact, tracking, form } = content;
   const telHref = `tel:${contact.phone.replace(/[^\d+]/g, "")}`;
 
   return (
     <>
       <Tracking metaPixelId={tracking.metaPixelId} ga4Id={tracking.ga4Id} gtmId={tracking.gtmId} />
       <a className="skip-link" href="#top">דילוג לתוכן</a>
-      <SiteHeader name={brand.name} tagline={brand.tagline} />
+      <SiteHeader name={brand.name} tagline={brand.tagline} logo={brand.headerLogo} />
 
       <main>
         <section className="hero" id="top">
@@ -183,7 +183,7 @@ export default async function Page() {
                 </span>
               </div>
             </div>
-            <LeadForm />
+            <LeadForm styles={form.styles} />
           </div>
         </section>
       </main>
@@ -192,7 +192,12 @@ export default async function Page() {
         <div className="container">
           <div className="footer-grid">
             <div className="footer-logo">
-              <strong>{brand.name}</strong>
+              {brand.footerLogo ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img className="footer-logo-img" src={brand.footerLogo} alt={brand.fullName} width={1200} height={633} />
+              ) : (
+                <strong>{brand.name}</strong>
+              )}
               <p>סטודיו לקעקועים בעיצוב אישי, עם תהליך מדויק, יחס אנושי ואמנות שנשארת.</p>
               <div className="socials">
                 {contact.socials.map((social) => (

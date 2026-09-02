@@ -166,6 +166,71 @@ export default function SettingsEditor({ initial }: { initial: SiteContent }) {
       </div>
 
       <div className="panel">
+        <h2>Tattoo styles</h2>
+        <p className="hint">
+          The options in the form&rsquo;s style dropdown. The first one is preselected — keep the
+          &ldquo;not sure yet&rdquo; option there so nobody feels forced to pick.
+        </p>
+
+        <div className="styles-list">
+          {content.form.styles.map((style, index) => (
+            <div className="style-row" key={index}>
+              <span className="style-index">{index + 1}</span>
+              <input
+                dir="auto"
+                value={style}
+                onChange={(e) => patch((d) => void (d.form.styles[index] = e.target.value))}
+              />
+              <button
+                className="btn-a btn-ghost btn-sm"
+                type="button"
+                title="Move up"
+                onClick={() =>
+                  patch((d) => {
+                    if (index === 0) return;
+                    const list = d.form.styles;
+                    [list[index - 1], list[index]] = [list[index], list[index - 1]];
+                  })
+                }
+              >
+                ↑
+              </button>
+              <button
+                className="btn-a btn-ghost btn-sm"
+                type="button"
+                title="Move down"
+                onClick={() =>
+                  patch((d) => {
+                    const list = d.form.styles;
+                    if (index === list.length - 1) return;
+                    [list[index], list[index + 1]] = [list[index + 1], list[index]];
+                  })
+                }
+              >
+                ↓
+              </button>
+              <button
+                className="btn-a btn-ghost btn-sm"
+                type="button"
+                onClick={() => patch((d) => void d.form.styles.splice(index, 1))}
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <button
+          className="btn-a btn-ghost btn-sm"
+          type="button"
+          style={{ marginTop: 10 }}
+          onClick={() => patch((d) => void d.form.styles.push(""))}
+        >
+          + Add style
+        </button>
+      </div>
+
+      <div className="panel">
         <h2>Email notifications</h2>
         <p className="hint">Every new lead is sent here. Separate multiple addresses with commas.</p>
         <label className="f">

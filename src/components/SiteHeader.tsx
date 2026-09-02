@@ -10,7 +10,15 @@ const LINKS = [
   { href: "#contact", label: "יצירת קשר" },
 ];
 
-export default function SiteHeader({ name, tagline }: { name: string; tagline: string }) {
+export default function SiteHeader({
+  name,
+  tagline,
+  logo,
+}: {
+  name: string;
+  tagline: string;
+  logo?: string;
+}) {
   const [open, setOpen] = useState(false);
 
   const close = () => {
@@ -44,8 +52,15 @@ export default function SiteHeader({ name, tagline }: { name: string; tagline: s
         </nav>
 
         <a className="logo" href="#top" aria-label={`${name} דף הבית`}>
-          <strong>{name}</strong>
-          <span>{tagline}</span>
+          {logo ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img className="logo-img" src={logo} alt={name} width={900} height={158} />
+          ) : (
+            <>
+              <strong>{name}</strong>
+              <span>{tagline}</span>
+            </>
+          )}
         </a>
 
         <a className="header-action" href="#contact" onClick={() => track("cta_click")}>

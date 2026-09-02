@@ -274,3 +274,15 @@ table.data a.row-link { font-weight: 700; }
   .crop-foot { flex-direction: column; }
   .crop-foot .btn-a { width: 100%; }
 }
+
+.styles-list { display: flex; flex-direction: column; gap: 8px; }
+.style-row { display: flex; align-items: center; gap: 6px; }
+.style-index { width: 22px; text-align: right; color: var(--a-muted); font-size: .8rem; font-variant-numeric: tabular-nums; flex: none; }
+.style-row input { flex: 1; min-width: 0; border: 1px solid var(--a-line); background: #fbfaf8; padding: 8px 11px; border-radius: 6px; color: var(--a-ink); }
+.style-row input:focus { border-color: var(--a-red); outline: none; box-shadow: 0 0 0 3px rgba(207, 48, 40, .1); }
+.style-row .btn-a { padding: 7px 11px; font-size: .78rem; flex: none; }
+
+@media (max-width: 620px) {
+  .style-row { flex-wrap: wrap; }
+  .style-row input { flex: 1 1 100%; order: -1; }
+}

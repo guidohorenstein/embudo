@@ -46,6 +46,10 @@ export type SiteContent = {
     name: string;
     tagline: string;
     fullName: string;
+    /** Wordmark horizontal para el header. Si esta vacio se muestra el nombre en texto. */
+    headerLogo: string;
+    /** Lockup completo para el pie de pagina. */
+    footerLogo: string;
   };
   seo: {
     title: string;
@@ -95,6 +99,10 @@ export type SiteContent = {
     metaPixelId: string;
     ga4Id: string;
     gtmId: string;
+  };
+  form: {
+    /** Opciones del desplegable de estilo en el formulario. */
+    styles: string[];
   };
   emails: {
     /** Mail automatico que recibe quien deja los datos en el formulario. */

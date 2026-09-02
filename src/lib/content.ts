@@ -8,6 +8,8 @@ export const DEFAULT_CONTENT: SiteContent = {
     name: "ZEN HOUSE",
     tagline: "TATTOO & PIERCING STUDIO",
     fullName: "Zen House Tattoo & Piercing Studio",
+    headerLogo: "/zen-wordmark-light.png",
+    footerLogo: "/zen-logo-light.png",
   },
   seo: {
     title: "Zen House Tattoo & Piercing Studio | קעקועים ופירסינג",
@@ -113,6 +115,24 @@ export const DEFAULT_CONTENT: SiteContent = {
     metaPixelId: "",
     ga4Id: "",
     gtmId: "",
+  },
+  form: {
+    styles: [
+      "עדיין לא בטוח/ה",
+      "יפני",
+      "פורטרט",
+      "ניאו טרדישנל",
+      "פיין ליין",
+      "לטרינג",
+      "ריאליזם",
+      "בלאקוורק",
+      "ניו סקול",
+      "טראש פולקה",
+      "פיוצ'ריסטי",
+      "אולד סקול",
+      "סוריאליזם",
+      "אבסטרקט",
+    ],
   },
   emails: {
     clientEnabled: true,

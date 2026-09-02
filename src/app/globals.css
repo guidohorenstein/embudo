@@ -354,3 +354,11 @@ html.a11y-contrast .legal-updated { color: #fff; }
 html.a11y-contrast .legal-body h2 { border-color: #fff; }
 html.a11y-contrast .legal-nav li a { background: #000; color: #fff; border-color: #fff; }
 html.a11y-contrast .legal-body a { color: #ff0; }
+
+/* Logo en imagen: el header mide 86px, asi que el wordmark se ajusta por altura. */
+.logo-img { width: auto; height: 40px; max-width: 100%; object-fit: contain; }
+.footer-logo-img { width: 190px; height: auto; margin-bottom: 14px; }
+
+@media (max-width: 900px) {
+  .logo-img { height: 32px; }
+}
