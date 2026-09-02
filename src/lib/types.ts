@@ -41,6 +41,12 @@ export type GalleryItem = { id: string; image: string; caption: string; alt: str
 export type SocialLink = { id: string; label: string; url: string };
 
 export type SiteContent = {
+  /** El nombre del estudio va en ingles tambien en la version hebrea. */
+  brand: {
+    name: string;
+    tagline: string;
+    fullName: string;
+  };
   seo: {
     title: string;
     description: string;

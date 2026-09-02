@@ -10,7 +10,7 @@ const LINKS = [
   { href: "#contact", label: "יצירת קשר" },
 ];
 
-export default function SiteHeader() {
+export default function SiteHeader({ name, tagline }: { name: string; tagline: string }) {
   const [open, setOpen] = useState(false);
 
   const close = () => {
@@ -43,9 +43,9 @@ export default function SiteHeader() {
           ))}
         </nav>
 
-        <a className="logo" href="#top" aria-label="NOIR INK דף הבית">
-          <strong>NOIR INK</strong>
-          <span>TATTOO STUDIO</span>
+        <a className="logo" href="#top" aria-label={`${name} דף הבית`}>
+          <strong>{name}</strong>
+          <span>{tagline}</span>
         </a>
 
         <a className="header-action" href="#contact" onClick={() => track("cta_click")}>

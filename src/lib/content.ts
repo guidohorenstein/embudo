@@ -4,8 +4,13 @@ import { sql } from "@/lib/db";
 import type { SiteContent } from "@/lib/types";
 
 export const DEFAULT_CONTENT: SiteContent = {
+  brand: {
+    name: "ZEN HOUSE",
+    tagline: "TATTOO & PIERCING STUDIO",
+    fullName: "Zen House Tattoo & Piercing Studio",
+  },
   seo: {
-    title: "NOIR INK | קעקועים בעיצוב אישי",
+    title: "Zen House Tattoo & Piercing Studio | קעקועים ופירסינג",
     description:
       "סטודיו לקעקועים בעיצוב אישי בתל אביב. עיצוב מקורי, קו מדויק, סביבה סטרילית וליווי אישי מהרעיון ועד ההחלמה.",
   },
@@ -38,7 +43,7 @@ export const DEFAULT_CONTENT: SiteContent = {
       "ליווי מלא בהחלמה",
       "פרטיות ואווירה רגועה",
     ],
-    signature: "DANIEL NOIR",
+    signature: "ZEN HOUSE",
     stamp: "100% עיצוב מקורי",
     mainImage:
       "https://images.unsplash.com/photo-1562962230-16e4623d36e6?auto=format&fit=crop&w=1200&q=88",
@@ -91,10 +96,10 @@ export const DEFAULT_CONTENT: SiteContent = {
     eyebrow: "LET'S CREATE",
     title: "יש לכם רעיון? בואו ניתן לו צורה.",
     intro: "השאירו פרטים וספרו בקצרה מה יש לכם בראש. אחזור אליכם לשיחת היכרות ללא התחייבות.",
-    phone: "050-123-4567",
-    email: "studio@noirink.co.il",
-    address: "רחוב לדוגמה 24, תל אביב",
-    hours: "א׳-ה׳ 10:00-20:00",
+    phone: "054-750-5670",
+    email: "daginstruments@gmail.com",
+    address: "הצאלון 67, שדה יצחק",
+    hours: "ראשון עד שבת, 10:00-22:00",
     whatsappNumber: "972547505670",
     whatsappMessage: "היי, הגעתי מהאתר ואשמח לשמוע פרטים על קעקוע.",
     socials: [
@@ -102,7 +107,7 @@ export const DEFAULT_CONTENT: SiteContent = {
       { id: "s2", label: "FB", url: "https://facebook.com/" },
       { id: "s3", label: "TT", url: "https://tiktok.com/" },
     ],
-    notifyEmails: "studio@noirink.co.il",
+    notifyEmails: "daginstruments@gmail.com",
   },
   tracking: {
     metaPixelId: "",
@@ -111,12 +116,12 @@ export const DEFAULT_CONTENT: SiteContent = {
   },
   emails: {
     clientEnabled: true,
-    clientSubject: "קיבלנו את הפנייה שלך · NOIR INK",
+    clientSubject: "קיבלנו את הפנייה שלך · Zen House Tattoo",
     clientHeading: "תודה, קיבלנו את הפרטים",
     // {{name}} se reemplaza con el nombre que dejo la persona en el formulario.
     clientBody:
       "היי {{name}}, תודה שפנית אלינו.\nהפנייה שלך התקבלה ואחזור אליך בהקדם לשיחת היכרות קצרה, ללא התחייבות, כדי להבין בדיוק מה יש לך בראש.\nבינתיים אפשר לעיין בעבודות שלנו באתר, ואם עולה שאלה דחופה אפשר פשוט להשיב למייל הזה.",
-    clientClosing: "נדבר בקרוב,\nDANIEL NOIR · NOIR INK",
+    clientClosing: "נדבר בקרוב,\nZen House Tattoo & Piercing Studio",
   },
 };
 

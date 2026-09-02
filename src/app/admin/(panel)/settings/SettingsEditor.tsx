@@ -27,6 +27,36 @@ export default function SettingsEditor({ initial }: { initial: SiteContent }) {
   return (
     <>
       <div className="panel">
+        <h2>Studio name</h2>
+        <p className="hint">
+          Shown in the header, the footer and the emails. It stays in English on the Hebrew site.
+        </p>
+        <div className="grid3">
+          <label className="f">
+            <span>Logo text</span>
+            <input
+              value={content.brand.name}
+              onChange={(e) => patch((d) => void (d.brand.name = e.target.value))}
+            />
+          </label>
+          <label className="f">
+            <span>Line under the logo</span>
+            <input
+              value={content.brand.tagline}
+              onChange={(e) => patch((d) => void (d.brand.tagline = e.target.value))}
+            />
+          </label>
+          <label className="f">
+            <span>Full legal name</span>
+            <input
+              value={content.brand.fullName}
+              onChange={(e) => patch((d) => void (d.brand.fullName = e.target.value))}
+            />
+          </label>
+        </div>
+      </div>
+
+      <div className="panel">
         <h2>Contact section</h2>
         <p className="hint">The copy shown next to the lead form</p>
         <div className="grid2">

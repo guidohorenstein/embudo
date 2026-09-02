@@ -37,13 +37,13 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page() {
   const content = await getContent();
-  const { hero, about, gallery, contact, tracking } = content;
+  const { brand, hero, about, gallery, contact, tracking } = content;
   const telHref = `tel:${contact.phone.replace(/[^\d+]/g, "")}`;
 
   return (
     <>
       <Tracking metaPixelId={tracking.metaPixelId} ga4Id={tracking.ga4Id} gtmId={tracking.gtmId} />
-      <SiteHeader />
+      <SiteHeader name={brand.name} tagline={brand.tagline} />
 
       <main>
         <section className="hero" id="top">
@@ -189,7 +189,7 @@ export default async function Page() {
         <div className="container">
           <div className="footer-grid">
             <div className="footer-logo">
-              <strong>NOIR INK</strong>
+              <strong>{brand.name}</strong>
               <p>סטודיו לקעקועים בעיצוב אישי, עם תהליך מדויק, יחס אנושי ואמנות שנשארת.</p>
               <div className="socials">
                 {contact.socials.map((social) => (
@@ -228,7 +228,7 @@ export default async function Page() {
             </div>
           </div>
           <div className="footer-bottom">
-            <span>© {new Date().getFullYear()} NOIR INK. כל הזכויות שמורות.</span>
+            <span>© {new Date().getFullYear()} {brand.fullName}. כל הזכויות שמורות.</span>
             <span>עיצוב והקמה: EX Advertising</span>
           </div>
         </div>

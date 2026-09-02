@@ -1,13 +1,16 @@
 import type { ReactNode } from "react";
+import { getContent } from "@/lib/content";
 import { logoutAction } from "../actions";
 import AdminNav from "./AdminNav";
 
-export default function PanelLayout({ children }: { children: ReactNode }) {
+export default async function PanelLayout({ children }: { children: ReactNode }) {
+  const { brand } = await getContent();
+
   return (
     <div className="admin-shell">
       <aside className="admin-side">
         <div className="brand">
-          <strong>NOIR INK</strong>
+          <strong>{brand.name}</strong>
           <span>ADMIN PANEL</span>
         </div>
         <AdminNav />

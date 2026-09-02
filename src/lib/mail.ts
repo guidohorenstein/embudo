@@ -42,11 +42,8 @@ export function leadEmailHtml(lead: Lead, adminUrl: string) {
 }
 
 /** Mail de confirmacion para quien dejo los datos. Va en hebreo, RTL. */
-export function clientEmailHtml(
-  emails: SiteContent["emails"],
-  contact: SiteContent["contact"],
-  lead: Lead,
-) {
+export function clientEmailHtml(content: SiteContent, lead: Lead) {
+  const { emails, contact, brand } = content;
   const paragraphs = (text: string) =>
     text
       .split(/\n{2,}|\n/)
@@ -60,8 +57,8 @@ export function clientEmailHtml(
   return `<div dir="rtl" style="font-family:Arial,Helvetica,sans-serif;background:#f2eee7;padding:24px">
   <div style="max-width:560px;margin:0 auto;background:#fff;border-top:6px solid #cf3028">
     <div style="padding:28px 30px">
-      <div style="font-size:22px;font-weight:bold;letter-spacing:3px;margin-bottom:2px">NOIR INK</div>
-      <div style="color:#cf3028;font-size:10px;font-weight:bold;letter-spacing:3px;margin-bottom:22px">TATTOO STUDIO</div>
+      <div style="font-size:22px;font-weight:bold;letter-spacing:3px;margin-bottom:2px">${escape(brand.name)}</div>
+      <div style="color:#cf3028;font-size:10px;font-weight:bold;letter-spacing:3px;margin-bottom:22px">${escape(brand.tagline)}</div>
 
       <h1 style="margin:0 0 16px;font-size:20px">${escape(emails.clientHeading)}</h1>
       <div style="font-size:15px;line-height:1.6;color:#333">${body}</div>
@@ -91,7 +88,7 @@ export async function sendClientEmail(lead: Lead, content: SiteContent) {
       // Si responden a la confirmacion, la respuesta va al estudio, no al remitente tecnico.
       replyTo: content.contact.email || undefined,
       subject: content.emails.clientSubject,
-      html: clientEmailHtml(content.emails, content.contact, lead),
+      html: clientEmailHtml(content, lead),
     });
     if (error) return { ok: false, error: error.message };
     return { ok: true as const };
