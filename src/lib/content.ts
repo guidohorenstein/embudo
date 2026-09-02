@@ -126,7 +126,7 @@ export const DEFAULT_CONTENT: SiteContent = {
       { id: "s3", label: "TT", url: "https://www.tiktok.com/@zenhouse.tattoo" },
     ],
     mapUrl: "https://maps.app.goo.gl/uzXdguH5oDgYAsC76",
-    quoteUrl: "https://www.zenhousetattoo.com/style",
+    quoteUrl: "https://www.zenhousetattoo.com/start",
     notifyEmails: "daginstruments@gmail.com",
   },
   tracking: {
