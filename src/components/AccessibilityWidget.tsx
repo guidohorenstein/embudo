@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { t, UI, type Lang } from "@/lib/i18n";
 
 /**
  * Panel de accesibilidad. Las preferencias se aplican como clases y variables
@@ -29,7 +30,13 @@ const DEFAULTS: Prefs = {
 const SCALES = [1, 1.15, 1.3, 1.5];
 const KEY = "a11y-prefs";
 
-export default function AccessibilityWidget({ statementHref }: { statementHref: string }) {
+export default function AccessibilityWidget({
+  lang,
+  statementHref,
+}: {
+  lang: Lang;
+  statementHref: string;
+}) {
   const [open, setOpen] = useState(false);
   const [prefs, setPrefs] = useState<Prefs>(DEFAULTS);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -93,11 +100,11 @@ export default function AccessibilityWidget({ statementHref }: { statementHref: 
   }, [open]);
 
   const toggles: { key: keyof Prefs; label: string }[] = [
-    { key: "contrast", label: "ניגודיות גבוהה" },
-    { key: "links", label: "הדגשת קישורים" },
-    { key: "readable", label: "גופן קריא" },
-    { key: "noMotion", label: "עצירת אנימציות" },
-    { key: "bigCursor", label: "סמן עכבר גדול" },
+    { key: "contrast", label: t(UI.a11y.contrast, lang) },
+    { key: "links", label: t(UI.a11y.links, lang) },
+    { key: "readable", label: t(UI.a11y.readable, lang) },
+    { key: "noMotion", label: t(UI.a11y.noMotion, lang) },
+    { key: "bigCursor", label: t(UI.a11y.bigCursor, lang) },
   ];
 
   return (
@@ -108,27 +115,27 @@ export default function AccessibilityWidget({ statementHref }: { statementHref: 
         type="button"
         aria-expanded={open}
         aria-controls="a11y-panel"
-        aria-label="תפריט נגישות"
+        aria-label={t(UI.a11y.menuAria, lang)}
         onClick={() => setOpen((value) => !value)}
       >
         <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true">
           <circle cx="12" cy="4" r="2" />
           <path d="M20.5 7.3a1 1 0 0 0-1.2-.75L15 7.6a12 12 0 0 1-6 0L4.7 6.55a1 1 0 1 0-.46 1.94L8 9.4v3.03L6.1 19.6a1 1 0 0 0 1.93.52L9.9 13.9h4.2l1.87 6.22a1 1 0 0 0 1.93-.52L16 12.43V9.4l3.76-.9a1 1 0 0 0 .74-1.2Z" />
         </svg>
-        <span className="float-label">אפשרויות נגישות</span>
+        <span className="float-label">{t(UI.a11y.menuAria, lang)}</span>
       </button>
 
       {open ? (
-        <div className="a11y-panel" id="a11y-panel" role="dialog" aria-label="אפשרויות נגישות" ref={panelRef}>
+        <div className="a11y-panel" id="a11y-panel" role="dialog" aria-label={t(UI.a11y.menuAria, lang)} ref={panelRef}>
           <div className="a11y-head">
-            <strong>נגישות</strong>
-            <button type="button" onClick={() => setOpen(false)} aria-label="סגירת התפריט">
+            <strong>{t(UI.a11y.title, lang)}</strong>
+            <button type="button" onClick={() => setOpen(false)} aria-label={t(UI.a11y.closeAria, lang)}>
               ×
             </button>
           </div>
 
           <div className="a11y-group">
-            <span className="a11y-label">גודל טקסט</span>
+            <span className="a11y-label">{t(UI.a11y.textSize, lang)}</span>
             <div className="a11y-sizes">
               {SCALES.map((value) => (
                 <button
@@ -159,9 +166,9 @@ export default function AccessibilityWidget({ statementHref }: { statementHref: 
 
           <div className="a11y-foot">
             <button type="button" className="a11y-reset" onClick={reset}>
-              איפוס הגדרות
+              {t(UI.a11y.reset, lang)}
             </button>
-            <a href={statementHref}>הצהרת נגישות</a>
+            <a href={statementHref}>{t(UI.a11y.statement, lang)}</a>
           </div>
         </div>
       ) : null}

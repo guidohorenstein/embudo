@@ -1,0 +1,148 @@
+{
+  "seo": {
+    "title": "Zen House Tattoo & Piercing Studio | קעקועים ופירסינג",
+    "description": "סטודיו לקעקועים בעיצוב אישי בתל אביב. עיצוב מקורי, קו מדויק, סביבה סטרילית וליווי אישי מהרעיון ועד ההחלמה."
+  },
+  "form": {
+    "styles": [
+      "עדיין לא בטוח/ה",
+      "יפני",
+      "פורטרט",
+      "ניאו טרדישנל",
+      "פיין ליין",
+      "לטרינג",
+      "ריאליזם",
+      "בלאקוורק",
+      "ניו סקול",
+      "טראש פולקה",
+      "פיוצ׳ריסטי",
+      "אולד סקול",
+      "סוריאליזם",
+      "אבסטרקט"
+    ]
+  },
+  "hero": {
+    "image": "https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=2200&q=88",
+    "stats": [
+      {
+        "label": "שנות ניסיון",
+        "value": "12+"
+      },
+      {
+        "label": "עבודות מקוריות",
+        "value": "1,200+"
+      },
+      {
+        "label": "דירוג לקוחות",
+        "value": "5.0"
+      }
+    ],
+    "eyebrow": "CUSTOM TATTOO ART · TEL AVIV",
+    "subtitle": "עיצוב מקורי שנבנה סביבך, בקו מדויק, בסביבה סטרילית ובליווי אישי מהרגע הראשון ועד ההחלמה.",
+    "primaryCta": "בואו ניצור משהו חד פעמי ←",
+    "titleLine1": "לא עוד קעקוע.",
+    "secondaryCta": "לצפייה בעבודות",
+    "titleHighlight": "הסיפור שלך"
+  },
+  "about": {
+    "stamp": "100% עיצוב מקורי",
+    "title": "אמנות שמתחילה בהקשבה.",
+    "bullets": [
+      "סקיצה מותאמת אישית",
+      "ציוד סטרילי חד פעמי",
+      "ליווי מלא בהחלמה",
+      "פרטיות ואווירה רגועה"
+    ],
+    "eyebrow": "ABOUT THE ARTIST",
+    "mainImage": "/api/media/b131eaf0-e38d-411c-923f-3ee056c4d227",
+    "signature": "ZEN HOUSE",
+    "paragraph1": "אני דניאל, אמן קעקועים שמתמחה בבלאקוורק, פיין ליין וריאליזם. מבחינתי, קעקוע טוב מתחיל הרבה לפני המחט. הוא מתחיל בסיפור, בכיוון ובבניית סקיצה שלא תראו על אף אחד אחר.",
+    "paragraph2": "בסטודיו תקבלו תהליך אישי, שקוף ומדויק. נדבר, נחדד את הרעיון, נבנה את העיצוב יחד ונעבוד בקצב שמרגיש נכון לכם.",
+    "detailImage": "https://images.unsplash.com/photo-1542727365-19732a80dcfd?auto=format&fit=crop&w=700&q=85"
+  },
+  "brand": {
+    "name": "ZEN HOUSE",
+    "tagline": "TATTOO & PIERCING STUDIO",
+    "fullName": "Zen House Tattoo & Piercing Studio",
+    "footerLogo": "/zen-logo-light.png",
+    "headerLogo": "/zen-wordmark-light.png"
+  },
+  "emails": {
+    "clientBody": "היי {{name}}, תודה שפנית אלינו.\nהפנייה שלך התקבלה ואחזור אליך בהקדם לשיחת היכרות קצרה, ללא התחייבות, כדי להבין בדיוק מה יש לך בראש.\nבינתיים אפשר לעיין בעבודות שלנו באתר, ואם עולה שאלה דחופה אפשר פשוט להשיב למייל הזה.",
+    "clientClosing": "נדבר בקרוב,\nZen House Tattoo & Piercing Studio",
+    "clientEnabled": true,
+    "clientHeading": "תודה, קיבלנו את הפרטים",
+    "clientSubject": "קיבלנו את הפנייה שלך · Zen House Tattoo"
+  },
+  "contact": {
+    "email": "daginstruments@gmail.com",
+    "hours": "ראשון עד שבת, 10:00-22:00",
+    "intro": "השאירו פרטים וספרו בקצרה מה יש לכם בראש. אחזור אליכם לשיחת היכרות ללא התחייבות.",
+    "phone": "054-750-5670",
+    "title": "יש לכם רעיון? בואו ניתן לו צורה.",
+    "address": "הצאלון 67, שדה יצחק",
+    "eyebrow": "LET'S CREATE",
+    "socials": [
+      {
+        "id": "s1",
+        "url": "https://www.instagram.com/zenhouse.tattoo?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw== ",
+        "label": "IG"
+      },
+      {
+        "id": "s2",
+        "url": "https://facebook.com/",
+        "label": "FB"
+      },
+      {
+        "id": "s3",
+        "url": "https://tiktok.com/",
+        "label": "TT"
+      }
+    ],
+    "notifyEmails": "daginstruments@gmail.com",
+    "whatsappNumber": "972547505670",
+    "whatsappMessage": "היי, הגעתי מהאתר ואשמח לשמוע פרטים על קעקוע."
+  },
+  "gallery": {
+    "intro": "לחצו על תמונה להגדלה.",
+    "items": [
+      {
+        "id": "g1",
+        "alt": "קעקוע שחור מפורט",
+        "image": "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?auto=format&fit=crop&w=1000&q=88",
+        "caption": "BLACKWORK · CUSTOM"
+      },
+      {
+        "id": "g2",
+        "alt": "קעקוע קווי",
+        "image": "https://images.unsplash.com/photo-1590246814883-57c511794e5b?auto=format&fit=crop&w=800&q=88",
+        "caption": "FINE LINE"
+      },
+      {
+        "id": "g3",
+        "alt": "קעקוע על הזרוע",
+        "image": "https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?auto=format&fit=crop&w=800&q=88",
+        "caption": "REALISM"
+      },
+      {
+        "id": "g4",
+        "alt": "פרט קעקוע",
+        "image": "https://images.unsplash.com/photo-1572197364459-bf17e8c79e4b?auto=format&fit=crop&w=800&q=88",
+        "caption": "DETAIL"
+      },
+      {
+        "id": "g5",
+        "alt": "עבודת קעקוע בסטודיו",
+        "image": "https://images.unsplash.com/photo-1521369421116-0f6115fcb5be?auto=format&fit=crop&w=800&q=88",
+        "caption": "IN PROGRESS"
+      }
+    ],
+    "title": "עבודות נבחרות.",
+    "eyebrow": "SELECTED WORK"
+  },
+  "tracking": {
+    "ga4Id": "",
+    "gtmId": "",
+    "metaPixelId": ""
+  }
+}

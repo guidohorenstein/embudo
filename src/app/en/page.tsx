@@ -4,8 +4,6 @@ import { getContent } from "@/lib/content";
 import { t } from "@/lib/i18n";
 import { siteUrl } from "@/lib/site";
 
-// El contenido se cachea y se invalida al guardar desde el panel,
-// asi la landing no consulta la base en cada visita.
 export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -13,23 +11,22 @@ export async function generateMetadata(): Promise<Metadata> {
   const base = siteUrl();
 
   return {
-    title: t(content.seo.title, "he"),
-    description: t(content.seo.description, "he"),
-    // hreflang: le avisa al buscador que / y /en son la misma pagina en dos idiomas.
+    title: t(content.seo.title, "en"),
+    description: t(content.seo.description, "en"),
     alternates: {
-      canonical: `${base}/`,
+      canonical: `${base}/en`,
       languages: { he: `${base}/`, en: `${base}/en`, "x-default": `${base}/` },
     },
     openGraph: {
-      title: t(content.seo.title, "he"),
-      description: t(content.seo.description, "he"),
+      title: t(content.seo.title, "en"),
+      description: t(content.seo.description, "en"),
       images: content.hero.image ? [content.hero.image] : undefined,
-      locale: "he_IL",
+      locale: "en_US",
       type: "website",
     },
   };
 }
 
-export default function Page() {
-  return <Landing lang="he" />;
+export default function EnglishPage() {
+  return <Landing lang="en" />;
 }

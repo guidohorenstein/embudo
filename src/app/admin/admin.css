@@ -286,3 +286,21 @@ table.data a.row-link { font-weight: 700; }
   .style-row { flex-wrap: wrap; }
   .style-row input { flex: 1 1 100%; order: -1; }
 }
+
+/* Selector de idioma del editor */
+.lang-tabs {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  background: var(--a-panel); border: 1px solid var(--a-line); border-radius: 10px;
+  padding: 14px 18px; margin-bottom: 20px;
+}
+.lang-tabs-label { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--a-muted); }
+.lang-tabs-buttons { display: flex; gap: 6px; }
+.lang-tabs-buttons button {
+  border: 1px solid var(--a-line); background: #fbfaf8; color: var(--a-ink);
+  padding: 8px 16px; border-radius: 6px; font: inherit; font-size: .88rem;
+  font-weight: 700; cursor: pointer;
+}
+.lang-tabs-buttons button.active { background: var(--a-red); border-color: var(--a-red); color: #fff; }
+.lang-tabs-hint { font-size: .82rem; color: var(--a-muted); flex: 1 1 260px; }
+
+@media (max-width: 620px) { .lang-tabs { flex-direction: column; align-items: stretch; } }

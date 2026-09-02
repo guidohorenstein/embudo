@@ -58,3 +58,6 @@ create index if not exists events_name_idx    on events (name, created_at desc);
 -- 'skipped' = no correspondia enviarlo (sin email, o desactivado en el panel).
 alter table leads add column if not exists client_mail_status text not null default 'skipped';
 alter table leads add column if not exists client_mail_error  text;
+
+-- Idioma en el que navegaba la persona: define en que idioma se le responde.
+alter table leads add column if not exists lang text not null default 'he';

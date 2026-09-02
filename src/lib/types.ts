@@ -1,6 +1,8 @@
+import type { L } from "@/lib/i18n";
+
 export type LeadStatus = "new" | "contacted" | "scheduled" | "won" | "lost";
 
-// Etiquetas del panel: van en ingles (el sitio publico sigue en hebreo).
+// Etiquetas del panel: van en ingles (el sitio publico es bilingue).
 export const LEAD_STATUSES: { value: LeadStatus; label: string; color: string }[] = [
   { value: "new", label: "New", color: "#cf3028" },
   { value: "contacted", label: "Contacted", color: "#c98a13" },
@@ -19,6 +21,8 @@ export type Lead = {
   idea: string | null;
   status: LeadStatus;
   notes: string;
+  /** Idioma en el que navegaba la persona: define en que idioma se le responde. */
+  lang: string;
   utm_source: string | null;
   utm_medium: string | null;
   utm_campaign: string | null;
@@ -36,62 +40,60 @@ export type Lead = {
   updated_at: string;
 };
 
-export type Stat = { value: string; label: string };
-export type GalleryItem = { id: string; image: string; caption: string; alt: string };
+export type Stat = { value: string; label: L };
+export type GalleryItem = { id: string; image: string; caption: L; alt: L };
 export type SocialLink = { id: string; label: string; url: string };
 
 export type SiteContent = {
-  /** El nombre del estudio va en ingles tambien en la version hebrea. */
+  /** El nombre del estudio va en ingles en los dos idiomas, por pedido del cliente. */
   brand: {
     name: string;
     tagline: string;
     fullName: string;
-    /** Wordmark horizontal para el header. Si esta vacio se muestra el nombre en texto. */
     headerLogo: string;
-    /** Lockup completo para el pie de pagina. */
     footerLogo: string;
   };
   seo: {
-    title: string;
-    description: string;
+    title: L;
+    description: L;
   };
   hero: {
-    eyebrow: string;
-    titleLine1: string;
-    titleHighlight: string;
-    subtitle: string;
-    primaryCta: string;
-    secondaryCta: string;
+    eyebrow: L;
+    titleLine1: L;
+    titleHighlight: L;
+    subtitle: L;
+    primaryCta: L;
+    secondaryCta: L;
     image: string;
     stats: Stat[];
   };
   about: {
-    eyebrow: string;
-    title: string;
-    paragraph1: string;
-    paragraph2: string;
-    bullets: string[];
+    eyebrow: L;
+    title: L;
+    paragraph1: L;
+    paragraph2: L;
+    bullets: L[];
     signature: string;
-    stamp: string;
+    stamp: L;
     mainImage: string;
     detailImage: string;
   };
   gallery: {
-    eyebrow: string;
-    title: string;
-    intro: string;
+    eyebrow: L;
+    title: L;
+    intro: L;
     items: GalleryItem[];
   };
   contact: {
-    eyebrow: string;
-    title: string;
-    intro: string;
+    eyebrow: L;
+    title: L;
+    intro: L;
     phone: string;
     email: string;
-    address: string;
-    hours: string;
+    address: L;
+    hours: L;
     whatsappNumber: string;
-    whatsappMessage: string;
+    whatsappMessage: L;
     socials: SocialLink[];
     notifyEmails: string;
   };
@@ -102,14 +104,14 @@ export type SiteContent = {
   };
   form: {
     /** Opciones del desplegable de estilo en el formulario. */
-    styles: string[];
+    styles: L[];
   };
   emails: {
     /** Mail automatico que recibe quien deja los datos en el formulario. */
     clientEnabled: boolean;
-    clientSubject: string;
-    clientHeading: string;
-    clientBody: string;
-    clientClosing: string;
+    clientSubject: L;
+    clientHeading: L;
+    clientBody: L;
+    clientClosing: L;
   };
 };

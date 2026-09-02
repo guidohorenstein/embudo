@@ -18,11 +18,11 @@ export async function generateMetadata({
   if (!isLegalSlug(slug)) return {};
 
   const content = await getContent();
-  const doc = getLegalDoc(slug, content, "he");
+  const doc = getLegalDoc(slug, content, "en");
   return { title: `${doc.title} | ${content.brand.fullName}`, description: doc.intro.slice(0, 160) };
 }
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  return <LegalDocPage slug={slug} lang="he" />;
+  return <LegalDocPage slug={slug} lang="en" />;
 }

@@ -1,12 +1,16 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { type Lang } from "@/lib/i18n";
+import LangTabs from "../LangTabs";
 import { saveContentAction } from "../../actions";
 import type { SiteContent } from "@/lib/types";
 
 export default function SettingsEditor({ initial }: { initial: SiteContent }) {
   const [content, setContent] = useState<SiteContent>(initial);
   const [status, setStatus] = useState<"idle" | "saved" | "error">("idle");
+  // Se edita un idioma por vez: dos campos por texto haria el formulario ilegible.
+  const [lang, setLang] = useState<Lang>("he");
   const [pending, startTransition] = useTransition();
 
   const patch = (updater: (draft: SiteContent) => void) =>
@@ -26,6 +30,8 @@ export default function SettingsEditor({ initial }: { initial: SiteContent }) {
 
   return (
     <>
+      <LangTabs lang={lang} onChange={setLang} />
+
       <div className="panel">
         <h2>Studio name</h2>
         <p className="hint">
@@ -63,16 +69,16 @@ export default function SettingsEditor({ initial }: { initial: SiteContent }) {
           <label className="f">
             <span>Kicker (English)</span>
             <input
-              value={contact.eyebrow}
-              onChange={(e) => patch((d) => void (d.contact.eyebrow = e.target.value))}
+              value={contact.eyebrow[lang]}
+              onChange={(e) => patch((d) => void (d.contact.eyebrow[lang] = e.target.value))}
             />
           </label>
           <label className="f">
             <span>Heading</span>
             <input
               dir="auto"
-              value={contact.title}
-              onChange={(e) => patch((d) => void (d.contact.title = e.target.value))}
+              value={contact.title[lang]}
+              onChange={(e) => patch((d) => void (d.contact.title[lang] = e.target.value))}
             />
           </label>
         </div>
@@ -80,8 +86,8 @@ export default function SettingsEditor({ initial }: { initial: SiteContent }) {
           <span>Intro text</span>
           <textarea
             dir="auto"
-            value={contact.intro}
-            onChange={(e) => patch((d) => void (d.contact.intro = e.target.value))}
+            value={contact.intro[lang]}
+            onChange={(e) => patch((d) => void (d.contact.intro[lang] = e.target.value))}
           />
         </label>
       </div>
@@ -110,16 +116,16 @@ export default function SettingsEditor({ initial }: { initial: SiteContent }) {
             <span>Address</span>
             <input
               dir="auto"
-              value={contact.address}
-              onChange={(e) => patch((d) => void (d.contact.address = e.target.value))}
+              value={contact.address[lang]}
+              onChange={(e) => patch((d) => void (d.contact.address[lang] = e.target.value))}
             />
           </label>
           <label className="f">
             <span>Opening hours</span>
             <input
               dir="auto"
-              value={contact.hours}
-              onChange={(e) => patch((d) => void (d.contact.hours = e.target.value))}
+              value={contact.hours[lang]}
+              onChange={(e) => patch((d) => void (d.contact.hours[lang] = e.target.value))}
             />
           </label>
         </div>
@@ -136,8 +142,8 @@ export default function SettingsEditor({ initial }: { initial: SiteContent }) {
             <span>Pre-filled WhatsApp message</span>
             <input
               dir="auto"
-              value={contact.whatsappMessage}
-              onChange={(e) => patch((d) => void (d.contact.whatsappMessage = e.target.value))}
+              value={contact.whatsappMessage[lang]}
+              onChange={(e) => patch((d) => void (d.contact.whatsappMessage[lang] = e.target.value))}
             />
           </label>
         </div>
@@ -178,8 +184,8 @@ export default function SettingsEditor({ initial }: { initial: SiteContent }) {
               <span className="style-index">{index + 1}</span>
               <input
                 dir="auto"
-                value={style}
-                onChange={(e) => patch((d) => void (d.form.styles[index] = e.target.value))}
+                value={style[lang]}
+                onChange={(e) => patch((d) => void (d.form.styles[index][lang] = e.target.value))}
               />
               <button
                 className="btn-a btn-ghost btn-sm"
@@ -224,7 +230,7 @@ export default function SettingsEditor({ initial }: { initial: SiteContent }) {
           className="btn-a btn-ghost btn-sm"
           type="button"
           style={{ marginTop: 10 }}
-          onClick={() => patch((d) => void d.form.styles.push(""))}
+          onClick={() => patch((d) => void d.form.styles.push({ he: "", en: "" }))}
         >
           + Add style
         </button>
@@ -267,16 +273,16 @@ export default function SettingsEditor({ initial }: { initial: SiteContent }) {
                 <span>Subject</span>
                 <input
                   dir="auto"
-                  value={content.emails.clientSubject}
-                  onChange={(e) => patch((d) => void (d.emails.clientSubject = e.target.value))}
+                  value={content.emails.clientSubject[lang]}
+                  onChange={(e) => patch((d) => void (d.emails.clientSubject[lang] = e.target.value))}
                 />
               </label>
               <label className="f">
                 <span>Heading</span>
                 <input
                   dir="auto"
-                  value={content.emails.clientHeading}
-                  onChange={(e) => patch((d) => void (d.emails.clientHeading = e.target.value))}
+                  value={content.emails.clientHeading[lang]}
+                  onChange={(e) => patch((d) => void (d.emails.clientHeading[lang] = e.target.value))}
                 />
               </label>
             </div>
@@ -285,16 +291,16 @@ export default function SettingsEditor({ initial }: { initial: SiteContent }) {
               <textarea
                 dir="auto"
                 rows={6}
-                value={content.emails.clientBody}
-                onChange={(e) => patch((d) => void (d.emails.clientBody = e.target.value))}
+                value={content.emails.clientBody[lang]}
+                onChange={(e) => patch((d) => void (d.emails.clientBody[lang] = e.target.value))}
               />
             </label>
             <label className="f">
               <span>Sign-off</span>
               <textarea
                 dir="auto"
-                value={content.emails.clientClosing}
-                onChange={(e) => patch((d) => void (d.emails.clientClosing = e.target.value))}
+                value={content.emails.clientClosing[lang]}
+                onChange={(e) => patch((d) => void (d.emails.clientClosing[lang] = e.target.value))}
               />
             </label>
           </>

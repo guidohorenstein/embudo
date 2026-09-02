@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { type Lang } from "@/lib/i18n";
+import LangTabs from "../LangTabs";
 import { saveContentAction } from "../../actions";
 import type { SiteContent } from "@/lib/types";
 import ImageField from "./ImageField";
@@ -8,6 +10,8 @@ import ImageField from "./ImageField";
 export default function ContentEditor({ initial }: { initial: SiteContent }) {
   const [content, setContent] = useState<SiteContent>(initial);
   const [status, setStatus] = useState<"idle" | "saved" | "error">("idle");
+  // Se edita un idioma por vez: dos campos por texto haria el formulario ilegible.
+  const [lang, setLang] = useState<Lang>("he");
   const [pending, startTransition] = useTransition();
 
   const patch = (updater: (draft: SiteContent) => void) =>
@@ -34,6 +38,8 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
 
   return (
     <>
+      <LangTabs lang={lang} onChange={setLang} />
+
       <div className="panel">
         <h2>Page title and SEO</h2>
         <p className="hint">The text that shows up on Google and when the link is shared</p>
@@ -41,16 +47,16 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
           <span>Page title</span>
           <input
             dir="auto"
-            value={content.seo.title}
-            onChange={(e) => patch((d) => void (d.seo.title = e.target.value))}
+            value={content.seo.title[lang]}
+            onChange={(e) => patch((d) => void (d.seo.title[lang] = e.target.value))}
           />
         </label>
         <label className="f">
           <span>Meta description</span>
           <textarea
             dir="auto"
-            value={content.seo.description}
-            onChange={(e) => patch((d) => void (d.seo.description = e.target.value))}
+            value={content.seo.description[lang]}
+            onChange={(e) => patch((d) => void (d.seo.description[lang] = e.target.value))}
           />
         </label>
       </div>
@@ -66,8 +72,8 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
         <label className="f">
           <span>Kicker (English)</span>
           <input
-            value={content.hero.eyebrow}
-            onChange={(e) => patch((d) => void (d.hero.eyebrow = e.target.value))}
+            value={content.hero.eyebrow[lang]}
+            onChange={(e) => patch((d) => void (d.hero.eyebrow[lang] = e.target.value))}
           />
         </label>
         <div className="grid2">
@@ -75,16 +81,16 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
             <span>First line</span>
             <input
               dir="auto"
-              value={content.hero.titleLine1}
-              onChange={(e) => patch((d) => void (d.hero.titleLine1 = e.target.value))}
+              value={content.hero.titleLine1[lang]}
+              onChange={(e) => patch((d) => void (d.hero.titleLine1[lang] = e.target.value))}
             />
           </label>
           <label className="f">
             <span>Highlighted line (in red)</span>
             <input
               dir="auto"
-              value={content.hero.titleHighlight}
-              onChange={(e) => patch((d) => void (d.hero.titleHighlight = e.target.value))}
+              value={content.hero.titleHighlight[lang]}
+              onChange={(e) => patch((d) => void (d.hero.titleHighlight[lang] = e.target.value))}
             />
           </label>
         </div>
@@ -92,8 +98,8 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
           <span>Subtitle</span>
           <textarea
             dir="auto"
-            value={content.hero.subtitle}
-            onChange={(e) => patch((d) => void (d.hero.subtitle = e.target.value))}
+            value={content.hero.subtitle[lang]}
+            onChange={(e) => patch((d) => void (d.hero.subtitle[lang] = e.target.value))}
           />
         </label>
         <div className="grid2">
@@ -101,16 +107,16 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
             <span>Primary button</span>
             <input
               dir="auto"
-              value={content.hero.primaryCta}
-              onChange={(e) => patch((d) => void (d.hero.primaryCta = e.target.value))}
+              value={content.hero.primaryCta[lang]}
+              onChange={(e) => patch((d) => void (d.hero.primaryCta[lang] = e.target.value))}
             />
           </label>
           <label className="f">
             <span>Secondary button</span>
             <input
               dir="auto"
-              value={content.hero.secondaryCta}
-              onChange={(e) => patch((d) => void (d.hero.secondaryCta = e.target.value))}
+              value={content.hero.secondaryCta[lang]}
+              onChange={(e) => patch((d) => void (d.hero.secondaryCta[lang] = e.target.value))}
             />
           </label>
         </div>
@@ -131,8 +137,8 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
                 <span>Caption {index + 1}</span>
                 <input
                   dir="auto"
-                  value={stat.label}
-                  onChange={(e) => patch((d) => void (d.hero.stats[index].label = e.target.value))}
+                  value={stat.label[lang]}
+                  onChange={(e) => patch((d) => void (d.hero.stats[index].label[lang] = e.target.value))}
                 />
               </label>
             </div>
@@ -158,16 +164,16 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
           <label className="f">
             <span>Kicker (English)</span>
             <input
-              value={content.about.eyebrow}
-              onChange={(e) => patch((d) => void (d.about.eyebrow = e.target.value))}
+              value={content.about.eyebrow[lang]}
+              onChange={(e) => patch((d) => void (d.about.eyebrow[lang] = e.target.value))}
             />
           </label>
           <label className="f">
             <span>Round stamp</span>
             <input
               dir="auto"
-              value={content.about.stamp}
-              onChange={(e) => patch((d) => void (d.about.stamp = e.target.value))}
+              value={content.about.stamp[lang]}
+              onChange={(e) => patch((d) => void (d.about.stamp[lang] = e.target.value))}
             />
           </label>
         </div>
@@ -175,24 +181,24 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
           <span>Heading</span>
           <input
             dir="auto"
-            value={content.about.title}
-            onChange={(e) => patch((d) => void (d.about.title = e.target.value))}
+            value={content.about.title[lang]}
+            onChange={(e) => patch((d) => void (d.about.title[lang] = e.target.value))}
           />
         </label>
         <label className="f">
           <span>First paragraph</span>
           <textarea
             dir="auto"
-            value={content.about.paragraph1}
-            onChange={(e) => patch((d) => void (d.about.paragraph1 = e.target.value))}
+            value={content.about.paragraph1[lang]}
+            onChange={(e) => patch((d) => void (d.about.paragraph1[lang] = e.target.value))}
           />
         </label>
         <label className="f">
           <span>Second paragraph</span>
           <textarea
             dir="auto"
-            value={content.about.paragraph2}
-            onChange={(e) => patch((d) => void (d.about.paragraph2 = e.target.value))}
+            value={content.about.paragraph2[lang]}
+            onChange={(e) => patch((d) => void (d.about.paragraph2[lang] = e.target.value))}
           />
         </label>
         <div className="grid2">
@@ -201,8 +207,8 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
               <span>Bullet {index + 1}</span>
               <input
                 dir="auto"
-                value={bullet}
-                onChange={(e) => patch((d) => void (d.about.bullets[index] = e.target.value))}
+                value={bullet[lang]}
+                onChange={(e) => patch((d) => void (d.about.bullets[index][lang] = e.target.value))}
               />
             </label>
           ))}
@@ -224,16 +230,16 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
           <label className="f">
             <span>Kicker (English)</span>
             <input
-              value={content.gallery.eyebrow}
-              onChange={(e) => patch((d) => void (d.gallery.eyebrow = e.target.value))}
+              value={content.gallery.eyebrow[lang]}
+              onChange={(e) => patch((d) => void (d.gallery.eyebrow[lang] = e.target.value))}
             />
           </label>
           <label className="f">
             <span>Heading</span>
             <input
               dir="auto"
-              value={content.gallery.title}
-              onChange={(e) => patch((d) => void (d.gallery.title = e.target.value))}
+              value={content.gallery.title[lang]}
+              onChange={(e) => patch((d) => void (d.gallery.title[lang] = e.target.value))}
             />
           </label>
         </div>
@@ -241,8 +247,8 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
           <span>Intro text</span>
           <input
             dir="auto"
-            value={content.gallery.intro}
-            onChange={(e) => patch((d) => void (d.gallery.intro = e.target.value))}
+            value={content.gallery.intro[lang]}
+            onChange={(e) => patch((d) => void (d.gallery.intro[lang] = e.target.value))}
           />
         </label>
 
@@ -259,16 +265,16 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
                   onChange={(url) => patch((d) => void (d.gallery.items[index].image = url))}
                 />
                 <input
-                  value={item.caption}
+                  value={item.caption[lang]}
                   placeholder="Caption"
                   dir="auto"
-                  onChange={(e) => patch((d) => void (d.gallery.items[index].caption = e.target.value))}
+                  onChange={(e) => patch((d) => void (d.gallery.items[index].caption[lang] = e.target.value))}
                 />
                 <input
-                  value={item.alt}
+                  value={item.alt[lang]}
                   placeholder="Alt text"
                   dir="auto"
-                  onChange={(e) => patch((d) => void (d.gallery.items[index].alt = e.target.value))}
+                  onChange={(e) => patch((d) => void (d.gallery.items[index].alt[lang] = e.target.value))}
                 />
                 <div className="row">
                   <button
@@ -309,8 +315,8 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
               void d.gallery.items.push({
                 id: crypto.randomUUID(),
                 image: "",
-                caption: "",
-                alt: "",
+                caption: { he: "", en: "" },
+                alt: { he: "", en: "" },
               }),
             )
           }

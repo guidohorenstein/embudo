@@ -3,6 +3,7 @@ import { z } from "zod";
 import { sql } from "@/lib/db";
 import { getContent } from "@/lib/content";
 import { sendClientEmail, sendLeadEmail } from "@/lib/mail";
+import { DEFAULT_LANG, isLang, type Lang } from "@/lib/i18n";
 import type { Lead } from "@/lib/types";
 
 export const runtime = "nodejs";
@@ -22,6 +23,7 @@ const schema = z.object({
   utm_term: z.string().max(200).optional(),
   utm_content: z.string().max(200).optional(),
   referrer: z.string().max(300).optional(),
+  lang: z.string().max(5).optional(),
 });
 
 /**
@@ -84,18 +86,21 @@ export async function POST(request: Request) {
     // ya llego, y no ensucia el panel con duplicados.
     if (await isDuplicate(data.phone, data.name)) return NextResponse.json({ ok: true });
 
+    // Idioma en el que navegaba: define en cual se le responde.
+    const lang: Lang = data.lang && isLang(data.lang) ? data.lang : DEFAULT_LANG;
+
     const [lead] = await sql<Lead[]>`
       insert into leads
         (name, phone, email, style, placement, idea,
          utm_source, utm_medium, utm_campaign, utm_term, utm_content,
-         referrer, visitor_id, user_agent, ip)
+         referrer, visitor_id, user_agent, ip, lang)
       values
         (${data.name}, ${data.phone}, ${data.email || null}, ${data.style || null},
          ${data.placement || null}, ${data.idea || null},
          ${data.utm_source || null}, ${data.utm_medium || null}, ${data.utm_campaign || null},
          ${data.utm_term || null}, ${data.utm_content || null},
          ${data.referrer || null}, ${data.visitorId || null},
-         ${request.headers.get("user-agent")?.slice(0, 400) || null}, ${ip})
+         ${request.headers.get("user-agent")?.slice(0, 400) || null}, ${ip}, ${lang})
       returning *
     `;
 
@@ -112,7 +117,7 @@ export async function POST(request: Request) {
     const wantsClientEmail = content.emails.clientEnabled && Boolean(lead.email);
     const [result, clientResult] = await Promise.all([
       sendLeadEmail(lead, recipients, `${origin}/admin/leads/${lead.id}`),
-      wantsClientEmail ? sendClientEmail(lead, content) : Promise.resolve(null),
+      wantsClientEmail ? sendClientEmail(lead, content, lang) : Promise.resolve(null),
     ]);
 
     await sql`

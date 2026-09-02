@@ -3,14 +3,17 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { track } from "@/lib/client-tracking";
+import { t, UI, type Lang } from "@/lib/i18n";
 import type { GalleryItem } from "@/lib/types";
 
 export default function Gallery({
+  lang,
   eyebrow,
   title,
   intro,
   items,
 }: {
+  lang: Lang;
   eyebrow: string;
   title: string;
   intro: string;
@@ -43,20 +46,20 @@ export default function Gallery({
               {item.image ? (
                 <Image
                   src={item.image}
-                  alt={item.alt || item.caption}
+                  alt={t(item.alt, lang) || t(item.caption, lang)}
                   fill
                   sizes={index === 0 ? "(max-width: 560px) 100vw, 45vw" : "(max-width: 560px) 100vw, 30vw"}
                   className="cover"
                 />
               ) : null}
-              <span>{item.caption}</span>
+              <span>{t(item.caption, lang)}</span>
             </button>
           ))}
         </div>
 
         <div className="gallery-more">
           <a className="btn btn-outline" href="#contact" onClick={() => track("cta_click")}>
-            יש לכם רעיון? בואו נדבר
+            {t(UI.galleryCta, lang)}
           </a>
         </div>
       </div>
@@ -65,17 +68,17 @@ export default function Gallery({
         className={active ? "lightbox open" : "lightbox"}
         role="dialog"
         aria-modal="true"
-        aria-label="תצוגת תמונה מוגדלת"
+        aria-label={t(UI.lightboxAria, lang)}
         onClick={(event) => {
           if (event.target === event.currentTarget) setActive(null);
         }}
       >
-        <button className="lightbox-close" type="button" aria-label="סגירה" onClick={() => setActive(null)}>
+        <button className="lightbox-close" type="button" aria-label={t(UI.close, lang)} onClick={() => setActive(null)}>
           ×
         </button>
         {active ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={active.image} alt={active.alt || active.caption} />
+          <img src={active.image} alt={t(active.alt, lang) || t(active.caption, lang)} />
         ) : null}
       </div>
     </section>

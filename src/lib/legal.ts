@@ -1,4 +1,6 @@
+import { t, type Lang } from "@/lib/i18n";
 import type { SiteContent } from "@/lib/types";
+import { englishDoc, LEGAL_NAV_EN } from "@/lib/legal-en";
 
 /**
  * Textos legales genericos, en hebreo. Son una base razonable para un estudio de
@@ -22,9 +24,11 @@ export type LegalDoc = {
 
 const UPDATED = "ספטמבר 2026";
 
-export function getLegalDoc(slug: LegalSlug, content: SiteContent): LegalDoc {
+export function getLegalDoc(slug: LegalSlug, content: SiteContent, lang: Lang): LegalDoc {
   const studio = content.brand.fullName;
-  const { email, phone, address } = content.contact;
+  const { email, phone } = content.contact;
+  const address = t(content.contact.address, lang);
+  if (lang === "en") return englishDoc(slug, { studio, email, phone, address });
 
   switch (slug) {
     case "privacy":
@@ -209,6 +213,8 @@ export function getLegalDoc(slug: LegalSlug, content: SiteContent): LegalDoc {
       };
   }
 }
+
+export const legalNav = (lang: Lang) => (lang === "en" ? LEGAL_NAV_EN : LEGAL_NAV);
 
 export const LEGAL_NAV: { slug: LegalSlug; label: string }[] = [
   { slug: "privacy", label: "מדיניות פרטיות" },
