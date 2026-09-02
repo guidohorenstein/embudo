@@ -11,6 +11,7 @@ export default async function SettingsPage() {
   // El remitente de prueba de Resend solo entrega a la casilla de la propia
   // cuenta: la confirmacion al cliente falla siempre y es facil no notarlo.
   const testSender = (process.env.MAIL_FROM ?? "").includes("resend.dev");
+  const sender = (process.env.MAIL_FROM ?? "").match(/<(.+)>/)?.[1] ?? process.env.MAIL_FROM ?? "";
 
   return (
     <>
@@ -32,6 +33,15 @@ export default async function SettingsPage() {
           auto-reply to clients is rejected for every address except the Resend account owner&rsquo;s.
           Verify a domain at resend.com/domains and point <code>MAIL_FROM</code> at it to start
           delivering to real clients.
+        </div>
+      ) : null}
+      {mailReady && !testSender && sender ? (
+        <div className="panel">
+          <h2>Email sender</h2>
+          <p className="hint">
+            Both emails go out from <code>{sender}</code>, on a domain verified with Resend, so they
+            reach any recipient. Replies land in the studio inbox set below.
+          </p>
         </div>
       ) : null}
       <SettingsEditor initial={content} initialVersion={version} />
