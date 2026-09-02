@@ -1,10 +1,10 @@
-import { getContent } from "@/lib/content";
+import { getContent, getContentVersion } from "@/lib/content";
 import ContentEditor from "./ContentEditor";
 
 export const dynamic = "force-dynamic";
 
 export default async function ContentPage() {
-  const content = await getContent();
+  const [content, version] = await Promise.all([getContent(), getContentVersion()]);
 
   return (
     <>
@@ -17,7 +17,7 @@ export default async function ContentPage() {
           Preview →
         </a>
       </div>
-      <ContentEditor initial={content} />
+      <ContentEditor initial={content} initialVersion={version} />
     </>
   );
 }

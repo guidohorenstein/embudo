@@ -310,10 +310,44 @@ export const getContent = cache(async function getContent(): Promise<SiteContent
   }
 });
 
-export async function saveContent(next: SiteContent) {
-  await sql`
-    insert into content (key, value, updated_at)
-    values ('site', ${sql.json(next as never)}, now())
-    on conflict (key) do update set value = excluded.value, updated_at = now()
+/** Marca de la ultima escritura, para detectar ediciones simultaneas. */
+export async function getContentVersion(): Promise<string> {
+  try {
+    const rows = await sql<{ updated_at: Date }[]>`
+      select updated_at from content where key = 'site'
+    `;
+    return rows.length ? new Date(rows[0].updated_at).toISOString() : "";
+  } catch {
+    return "";
+  }
+}
+
+/**
+ * El panel guarda el documento entero, asi que una pestaña abierta desde antes
+ * pisaria en silencio lo que se haya cambiado mientras tanto. Se guarda solo si
+ * la fila sigue en la version que el editor cargo.
+ */
+export async function saveContent(
+  next: SiteContent,
+  expectedVersion: string,
+): Promise<{ ok: true; version: string } | { ok: false; reason: "conflict" }> {
+  if (!expectedVersion) {
+    const rows = await sql<{ updated_at: Date }[]>`
+      insert into content (key, value, updated_at)
+      values ('site', ${sql.json(next as never)}, now())
+      on conflict (key) do nothing
+      returning updated_at
+    `;
+    if (!rows.length) return { ok: false, reason: "conflict" };
+    return { ok: true, version: new Date(rows[0].updated_at).toISOString() };
+  }
+
+  const rows = await sql<{ updated_at: Date }[]>`
+    update content
+    set value = ${sql.json(next as never)}, updated_at = now()
+    where key = 'site' and updated_at = ${expectedVersion}::timestamptz
+    returning updated_at
   `;
+  if (!rows.length) return { ok: false, reason: "conflict" };
+  return { ok: true, version: new Date(rows[0].updated_at).toISOString() };
 }

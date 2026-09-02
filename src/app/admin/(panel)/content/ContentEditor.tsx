@@ -13,10 +13,13 @@ import { Block, Plain, Text } from "./Fields";
  * arriba lo que el visitante ve primero, abajo el pie y los mails. Cada bloque
  * dice a que parte de la pagina pertenece.
  */
-export default function ContentEditor({ initial }: { initial: SiteContent }) {
+export default function ContentEditor({ initial, initialVersion }: { initial: SiteContent; initialVersion: string }) {
   const [content, setContent] = useState<SiteContent>(initial);
   const [status, setStatus] = useState<"idle" | "saved" | "error">("idle");
+  const [error, setError] = useState("");
   const [lang, setLang] = useState<Lang>("he");
+  // Version que tenia el contenido al abrir el editor: si cambio, no se pisa.
+  const [version, setVersion] = useState(initialVersion);
   const [pending, startTransition] = useTransition();
 
   const patch = (updater: (draft: SiteContent) => void) =>
@@ -28,8 +31,10 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
 
   const save = () =>
     startTransition(async () => {
-      const result = await saveContentAction(JSON.stringify(content));
+      const result = await saveContentAction(JSON.stringify(content), version);
+      if (result.ok && result.version) setVersion(result.version);
       setStatus(result.ok ? "saved" : "error");
+      setError(result.error ?? "");
     });
 
   const move = (index: number, delta: number) =>
@@ -267,7 +272,7 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
           {pending ? "Saving..." : "Save changes"}
         </button>
         {status === "saved" && !pending ? <span className="saved">Saved ✓</span> : null}
-        {status === "error" && !pending ? <span className="failed">Could not save</span> : null}
+        {status === "error" && !pending ? <span className="failed">{error || "Could not save"}</span> : null}
       </div>
     </>
   );

@@ -8,9 +8,12 @@ import type { SiteContent } from "@/lib/types";
  * Solo configuracion tecnica. Todo el texto que el visitante lee se edita en
  * la pestana Website, para no tener que buscarlo en dos lugares.
  */
-export default function SettingsEditor({ initial }: { initial: SiteContent }) {
+export default function SettingsEditor({ initial, initialVersion }: { initial: SiteContent; initialVersion: string }) {
   const [content, setContent] = useState<SiteContent>(initial);
   const [status, setStatus] = useState<"idle" | "saved" | "error">("idle");
+  const [error, setError] = useState("");
+  // Version que tenia el contenido al abrir el editor: si cambio, no se pisa.
+  const [version, setVersion] = useState(initialVersion);
   const [pending, startTransition] = useTransition();
 
   const patch = (updater: (draft: SiteContent) => void) =>
@@ -22,8 +25,10 @@ export default function SettingsEditor({ initial }: { initial: SiteContent }) {
 
   const save = () =>
     startTransition(async () => {
-      const result = await saveContentAction(JSON.stringify(content));
+      const result = await saveContentAction(JSON.stringify(content), version);
+      if (result.ok && result.version) setVersion(result.version);
       setStatus(result.ok ? "saved" : "error");
+      setError(result.error ?? "");
     });
 
   const { brand, contact, tracking } = content;
@@ -132,7 +137,7 @@ export default function SettingsEditor({ initial }: { initial: SiteContent }) {
           {pending ? "Saving..." : "Save changes"}
         </button>
         {status === "saved" && !pending ? <span className="saved">Saved ✓</span> : null}
-        {status === "error" && !pending ? <span className="failed">Could not save</span> : null}
+        {status === "error" && !pending ? <span className="failed">{error || "Could not save"}</span> : null}
       </div>
     </>
   );

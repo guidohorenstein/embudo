@@ -45,16 +45,25 @@ export async function logoutAction() {
 
 /* ---------------- Contenido ---------------- */
 
-export type SaveState = { ok?: boolean; error?: string };
+export type SaveState = { ok?: boolean; error?: string; version?: string };
 
-export async function saveContentAction(json: string): Promise<SaveState> {
+export async function saveContentAction(json: string, version: string): Promise<SaveState> {
   await requireAdmin();
   try {
     const next = JSON.parse(json) as SiteContent;
-    await saveContent(next);
+    const result = await saveContent(next, version);
+
+    if (!result.ok) {
+      return {
+        error:
+          "The site content changed somewhere else while this page was open. Reload to get the latest version before saving, so you don't overwrite those changes.",
+      };
+    }
+
     revalidatePath("/");
+    revalidatePath("/en");
     revalidatePath("/admin", "layout");
-    return { ok: true };
+    return { ok: true, version: result.version };
   } catch (error) {
     console.error("Error guardando contenido:", error);
     return { error: "Could not save. Please try again." };
