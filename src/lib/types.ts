@@ -73,7 +73,6 @@ export type SiteContent = {
     paragraph1: L;
     paragraph2: L;
     bullets: L[];
-    signature: string;
     stamp: L;
     mainImage: string;
     detailImage: string;

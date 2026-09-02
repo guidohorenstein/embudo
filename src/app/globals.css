@@ -86,7 +86,6 @@ button, input, select, textarea { font: inherit; }
 .about-list { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 32px 0 38px; padding: 0; list-style: none; }
 .about-list li { border-top: 1px solid #bdb6ad; padding-top: 13px; font-weight: 700; }
 .about-list li::before { content: "\2726"; color: var(--red); margin-left: 8px; }
-.signature { font-family: var(--font-display), "Bebas Neue", sans-serif; font-size: 2rem; letter-spacing: .08em; transform: rotate(-3deg); display: inline-block; }
 
 /* Process */
 .process { padding: 115px 0; }
@@ -104,8 +103,8 @@ button, input, select, textarea { font: inherit; }
 .gallery-grid { display: grid; grid-template-columns: 1.15fr .85fr .85fr; grid-auto-rows: 310px; gap: 14px; }
 .gallery-item { position: relative; overflow: hidden; cursor: pointer; border: 0; padding: 0; background: #181818; }
 .gallery-item:first-child { grid-row: span 2; }
-.gallery-item img { height: 100%; filter: grayscale(1); transition: transform .55s ease, filter .4s ease; }
-.gallery-item:hover img { transform: scale(1.045); filter: grayscale(.25); }
+.gallery-item img { height: 100%; transition: transform .55s ease; }
+.gallery-item:hover img { transform: scale(1.06); }
 .gallery-item span { position: absolute; inset: auto 0 0; padding: 38px 20px 18px; background: linear-gradient(transparent, rgba(0, 0, 0, .75)); color: #fff; text-align: right; font-weight: 700; opacity: 0; transform: translateY(8px); transition: .3s; }
 .gallery-item:hover span { opacity: 1; transform: none; }
 .gallery-more { margin-top: 30px; text-align: center; }
@@ -458,3 +457,32 @@ html.a11y-contrast .footer-quote a { border-color: #ff0; color: #ff0; }
 
 /* Con el menu abierto los flotantes estorban y quedan encima */
 body.menu-open .float { display: none; }
+
+/* Visor de fotos: flechas a los costados y pie con el contador */
+.lightbox { grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; }
+.lightbox-figure { margin: 0; display: grid; justify-items: center; gap: 12px; min-width: 0; }
+.lightbox-figure img { max-width: min(900px, 100%); max-height: 80vh; object-fit: contain; width: auto; }
+.lightbox-figure figcaption {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center;
+  color: #d9d5cf; font-size: .9rem; font-weight: 700;
+}
+.lightbox-index { color: #8d8a84; font-variant-numeric: tabular-nums; font-weight: 400; }
+
+.lightbox-nav {
+  width: 52px; height: 52px; flex: none;
+  display: grid; place-items: center;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 50%;
+  color: #fff; cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.lightbox-nav:hover { background: rgba(255, 255, 255, .18); border-color: #fff; }
+/* Las flechas apuntan hacia afuera en los dos sentidos de lectura */
+[dir="rtl"] .lightbox-nav svg { transform: scaleX(-1); }
+
+@media (max-width: 700px) {
+  .lightbox { padding: 16px; gap: 6px; }
+  .lightbox-nav { width: 44px; height: 44px; }
+  .lightbox-figure img { max-height: 70vh; }
+}

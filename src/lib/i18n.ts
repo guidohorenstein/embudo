@@ -89,6 +89,8 @@ export const UI = {
   galleryCount: { he: "מוצגות {shown} מתוך {total}", en: "Showing {shown} of {total}" },
   lightboxAria: { he: "תצוגת תמונה מוגדלת", en: "Enlarged image view" },
   close: { he: "סגירה", en: "Close" },
+  prev: { he: "התמונה הקודמת", en: "Previous image" },
+  next: { he: "התמונה הבאה", en: "Next image" },
 
   form: {
     name: { he: "שם מלא *", en: "Full name *" },

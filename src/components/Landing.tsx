@@ -119,7 +119,6 @@ export default async function Landing({ lang }: { lang: Lang }) {
                   <li key={index}>{t(bullet, lang)}</li>
                 ))}
               </ul>
-              <span className="signature">{about.signature}</span>
             </div>
           </div>
         </section>
@@ -152,6 +151,7 @@ export default async function Landing({ lang }: { lang: Lang }) {
           intro={t(gallery.intro, lang)}
           items={gallery.items}
           ctaLabel={t(ui.galleryCta, lang)}
+          ctaHref={contact.quoteUrl || "#contact"}
           moreLabel={t(ui.galleryMore, lang)}
         />
 

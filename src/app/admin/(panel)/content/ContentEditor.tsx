@@ -101,7 +101,6 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
             <Text key={i} label={`Bullet ${i + 1}`} value={bullet} lang={lang} onChange={(v) => patch((d) => void (d.about.bullets[i][lang] = v))} />
           ))}
         </div>
-        <Plain label="Signature" hint="same in both languages" value={content.about.signature} onChange={(v) => patch((d) => void (d.about.signature = v))} />
       </Block>
 
       <Block title="The process" where="The four numbered steps">

@@ -56,7 +56,6 @@ export const DEFAULT_CONTENT: SiteContent = {
       { he: "ליווי מלא בהחלמה", en: "Full support while healing" },
       { he: "פרטיות ואווירה רגועה", en: "Privacy and a calm space" },
     ],
-    signature: "ZEN HOUSE",
     stamp: { he: "100% עיצוב מקורי", en: "100% original design" },
     mainImage:
       "https://images.unsplash.com/photo-1562962230-16e4623d36e6?auto=format&fit=crop&w=1200&q=88",
