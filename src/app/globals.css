@@ -160,8 +160,45 @@ button, input, select, textarea { font: inherit; }
   .site-header { height: 72px; }
   .menu-toggle { display: block; justify-self: start; }
   .header-action { font-size: .82rem; }
-  .nav { position: fixed; inset: 72px 0 0; display: none; flex-direction: column; justify-content: center; background: #090909; font-size: 1.5rem; }
+  /* El header tiene backdrop-filter, y eso lo convierte en el bloque contenedor
+     de sus hijos position:fixed. Por eso el menu no puede usar bottom: 0 (caeria
+     en el borde del header, con altura cero): se le da altura explicita. */
+  .nav {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    height: calc(100vh - 72px);
+    height: calc(100dvh - 72px);
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 24px 40px;
+    background: #0a0a0a;
+    font-size: 1.15rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
   .nav.open { display: flex; }
+  .nav a {
+    padding: 20px 2px;
+    border-bottom: 1px solid var(--line);
+    color: #efece7;
+    font-weight: 600;
+  }
+  .nav a:last-of-type { border-bottom: 0; }
+  .nav a:active { color: var(--red); }
+  .nav-cta {
+    margin-top: 26px;
+    padding: 16px 20px;
+    background: var(--red);
+    color: #fff;
+    text-align: center;
+    font-weight: 800;
+    border-bottom: 0;
+  }
   .hero { min-height: 760px; }
   .hero::before { background: linear-gradient(0deg, rgba(8, 8, 8, .97), rgba(8, 8, 8, .15) 70%); }
   .hero-img { object-position: 30% center; }
@@ -414,3 +451,10 @@ html.a11y-contrast .legal-body a { color: #ff0; }
 .footer-quote + .footer-bottom { margin-top: 26px; }
 
 html.a11y-contrast .footer-quote a { border-color: #ff0; color: #ff0; }
+
+/* El CTA del menu solo existe en movil: arriba de 900px esta en la barra. */
+.nav-cta { display: none; }
+@media (max-width: 900px) { .nav-cta { display: block; } }
+
+/* Con el menu abierto los flotantes estorban y quedan encima */
+body.menu-open .float { display: none; }

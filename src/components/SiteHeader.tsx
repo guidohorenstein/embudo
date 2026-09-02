@@ -58,6 +58,17 @@ export default function SiteHeader({
               {link.label}
             </a>
           ))}
+          {/* En movil el boton de la barra no entra, asi que vive dentro del menu. */}
+          <a
+            className="nav-cta"
+            href="#contact"
+            onClick={() => {
+              close();
+              track("cta_click");
+            }}
+          >
+            {cta}
+          </a>
         </nav>
 
         <a className="logo" href={pathFor(lang)} aria-label={`${name} ${t(UI.homeAria, lang)}`}>
