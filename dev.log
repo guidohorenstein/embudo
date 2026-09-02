@@ -1,0 +1,20 @@
+   ▲ Next.js 15.5.25
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.72:3000
+   - Environments: .env.local
+   - Experiments (use with caution):
+     · serverActions
+
+ ✓ Starting...
+ ✓ Ready in 3.3s
+ ○ Compiling / ...
+ ✓ Compiled / in 2.4s (631 modules)
+Image with src "https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=2200&q=88" is using quality "70" which is not configured in images.qualities. This config will be required starting in Next.js 16.
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
+ GET / 200 in 4432ms
+ ○ Compiling /api/leads ...
+ ✓ Compiled /api/leads in 951ms (708 modules)
+ POST /api/leads 200 in 3243ms
+ POST /api/leads 200 in 1925ms
+   Reload env: .env.local
+ ✓ Compiled in 185ms (250 modules)

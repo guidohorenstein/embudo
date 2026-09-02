@@ -1,0 +1,252 @@
+"use client";
+
+import { useState, useTransition } from "react";
+import { saveContentAction } from "../../actions";
+import type { SiteContent } from "@/lib/types";
+
+export default function SettingsEditor({ initial }: { initial: SiteContent }) {
+  const [content, setContent] = useState<SiteContent>(initial);
+  const [status, setStatus] = useState<"idle" | "saved" | "error">("idle");
+  const [pending, startTransition] = useTransition();
+
+  const patch = (updater: (draft: SiteContent) => void) =>
+    setContent((prev) => {
+      const next = structuredClone(prev);
+      updater(next);
+      return next;
+    });
+
+  const save = () =>
+    startTransition(async () => {
+      const result = await saveContentAction(JSON.stringify(content));
+      setStatus(result.ok ? "saved" : "error");
+    });
+
+  const { contact, tracking } = content;
+
+  return (
+    <>
+      <div className="panel">
+        <h2>Contact section</h2>
+        <p className="hint">The copy shown next to the lead form</p>
+        <div className="grid2">
+          <label className="f">
+            <span>Kicker (English)</span>
+            <input
+              value={contact.eyebrow}
+              onChange={(e) => patch((d) => void (d.contact.eyebrow = e.target.value))}
+            />
+          </label>
+          <label className="f">
+            <span>Heading</span>
+            <input
+              dir="auto"
+              value={contact.title}
+              onChange={(e) => patch((d) => void (d.contact.title = e.target.value))}
+            />
+          </label>
+        </div>
+        <label className="f">
+          <span>Intro text</span>
+          <textarea
+            dir="auto"
+            value={contact.intro}
+            onChange={(e) => patch((d) => void (d.contact.intro = e.target.value))}
+          />
+        </label>
+      </div>
+
+      <div className="panel">
+        <h2>Studio details</h2>
+        <p className="hint">Shown in the contact section and in the footer</p>
+        <div className="grid2">
+          <label className="f">
+            <span>Phone</span>
+            <input
+              value={contact.phone}
+              onChange={(e) => patch((d) => void (d.contact.phone = e.target.value))}
+            />
+          </label>
+          <label className="f">
+            <span>Email</span>
+            <input
+              value={contact.email}
+              onChange={(e) => patch((d) => void (d.contact.email = e.target.value))}
+            />
+          </label>
+        </div>
+        <div className="grid2">
+          <label className="f">
+            <span>Address</span>
+            <input
+              dir="auto"
+              value={contact.address}
+              onChange={(e) => patch((d) => void (d.contact.address = e.target.value))}
+            />
+          </label>
+          <label className="f">
+            <span>Opening hours</span>
+            <input
+              dir="auto"
+              value={contact.hours}
+              onChange={(e) => patch((d) => void (d.contact.hours = e.target.value))}
+            />
+          </label>
+        </div>
+        <div className="grid2">
+          <label className="f">
+            <span>WhatsApp number (international format)</span>
+            <input
+              value={contact.whatsappNumber}
+              onChange={(e) => patch((d) => void (d.contact.whatsappNumber = e.target.value))}
+              placeholder="972501234567"
+            />
+          </label>
+          <label className="f">
+            <span>Pre-filled WhatsApp message</span>
+            <input
+              dir="auto"
+              value={contact.whatsappMessage}
+              onChange={(e) => patch((d) => void (d.contact.whatsappMessage = e.target.value))}
+            />
+          </label>
+        </div>
+
+        <h3 style={{ fontSize: ".95rem", margin: "18px 0 8px" }}>Social links</h3>
+        <div className="grid3">
+          {contact.socials.map((social, index) => (
+            <div key={social.id}>
+              <label className="f">
+                <span>Label</span>
+                <input
+                  value={social.label}
+                  onChange={(e) => patch((d) => void (d.contact.socials[index].label = e.target.value))}
+                />
+              </label>
+              <label className="f">
+                <span>URL</span>
+                <input
+                  value={social.url}
+                  onChange={(e) => patch((d) => void (d.contact.socials[index].url = e.target.value))}
+                />
+              </label>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="panel">
+        <h2>Email notifications</h2>
+        <p className="hint">Every new lead is sent here. Separate multiple addresses with commas.</p>
+        <label className="f">
+          <span>Recipients</span>
+          <input
+            value={contact.notifyEmails}
+            onChange={(e) => patch((d) => void (d.contact.notifyEmails = e.target.value))}
+            placeholder="studio@noirink.co.il, manager@noirink.co.il"
+          />
+        </label>
+      </div>
+
+      <div className="panel">
+        <h2>Auto-reply to the client</h2>
+        <p className="hint">
+          Sent in Hebrew to whoever leaves their email in the form, right after they submit. Use{" "}
+          <code>{"{{name}}"}</code> to insert their name. Replies come back to the studio address
+          above.
+        </p>
+
+        <label className="toggle">
+          <input
+            type="checkbox"
+            checked={content.emails.clientEnabled}
+            onChange={(e) => patch((d) => void (d.emails.clientEnabled = e.target.checked))}
+          />
+          <span>Send an automatic confirmation email</span>
+        </label>
+
+        {content.emails.clientEnabled ? (
+          <>
+            <div className="grid2">
+              <label className="f">
+                <span>Subject</span>
+                <input
+                  dir="auto"
+                  value={content.emails.clientSubject}
+                  onChange={(e) => patch((d) => void (d.emails.clientSubject = e.target.value))}
+                />
+              </label>
+              <label className="f">
+                <span>Heading</span>
+                <input
+                  dir="auto"
+                  value={content.emails.clientHeading}
+                  onChange={(e) => patch((d) => void (d.emails.clientHeading = e.target.value))}
+                />
+              </label>
+            </div>
+            <label className="f">
+              <span>Body</span>
+              <textarea
+                dir="auto"
+                rows={6}
+                value={content.emails.clientBody}
+                onChange={(e) => patch((d) => void (d.emails.clientBody = e.target.value))}
+              />
+            </label>
+            <label className="f">
+              <span>Sign-off</span>
+              <textarea
+                dir="auto"
+                value={content.emails.clientClosing}
+                onChange={(e) => patch((d) => void (d.emails.clientClosing = e.target.value))}
+              />
+            </label>
+          </>
+        ) : null}
+      </div>
+
+      <div className="panel">
+        <h2>Pixels and analytics</h2>
+        <p className="hint">
+          Leave blank to skip loading the script. The conversion event fires automatically on form
+          submit (Lead / generate_lead).
+        </p>
+        <div className="grid3">
+          <label className="f">
+            <span>Meta Pixel ID</span>
+            <input
+              value={tracking.metaPixelId}
+              onChange={(e) => patch((d) => void (d.tracking.metaPixelId = e.target.value.trim()))}
+              placeholder="1234567890"
+            />
+          </label>
+          <label className="f">
+            <span>Google Analytics 4 ID</span>
+            <input
+              value={tracking.ga4Id}
+              onChange={(e) => patch((d) => void (d.tracking.ga4Id = e.target.value.trim()))}
+              placeholder="G-XXXXXXX"
+            />
+          </label>
+          <label className="f">
+            <span>Google Tag Manager ID</span>
+            <input
+              value={tracking.gtmId}
+              onChange={(e) => patch((d) => void (d.tracking.gtmId = e.target.value.trim()))}
+              placeholder="GTM-XXXXXX"
+            />
+          </label>
+        </div>
+      </div>
+
+      <div className="sticky-save">
+        <button className="btn-a" type="button" onClick={save} disabled={pending}>
+          {pending ? "Saving..." : "Save changes"}
+        </button>
+        {status === "saved" && !pending ? <span className="saved">Saved ✓</span> : null}
+        {status === "error" && !pending ? <span className="failed">Could not save</span> : null}
+      </div>
+    </>
+  );
+}

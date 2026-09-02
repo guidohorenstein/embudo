@@ -1,0 +1,35 @@
+{
+  "name": "noir-ink-funnel",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:migrate": "node --env-file=.env.local scripts/migrate.mjs",
+    "hash": "node scripts/hash-password.mjs",
+    "set-password": "node scripts/set-password.mjs",
+    "media:recompress": "node --env-file=.env.local scripts/recompress-media.mjs"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jose": "^5.9.6",
+    "next": "^15.5.25",
+    "postgres": "^3.4.5",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "react-image-crop": "^11.1.2",
+    "resend": "^4.6.0",
+    "server-only": "^0.0.1",
+    "sharp": "^0.35.4",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "typescript": "^5.7.3"
+  }
+}
