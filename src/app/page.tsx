@@ -7,6 +7,8 @@ import LeadForm from "@/components/LeadForm";
 import Tracking from "@/components/Tracking";
 import CtaLink from "@/components/CtaLink";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import AccessibilityWidget from "@/components/AccessibilityWidget";
+import { LEGAL_NAV } from "@/lib/legal";
 
 // El contenido se cachea y se invalida al guardar desde el panel
 // (saveContentAction llama a revalidatePath("/")), asi la landing
@@ -43,6 +45,7 @@ export default async function Page() {
   return (
     <>
       <Tracking metaPixelId={tracking.metaPixelId} ga4Id={tracking.ga4Id} gtmId={tracking.gtmId} />
+      <a className="skip-link" href="#top">דילוג לתוכן</a>
       <SiteHeader name={brand.name} tagline={brand.tagline} />
 
       <main>
@@ -211,10 +214,11 @@ export default async function Page() {
             <div>
               <h4>פרטים חשובים</h4>
               <div className="footer-links">
-                <a href="#contact">מדיניות פרטיות</a>
-                <a href="#contact">הצהרת נגישות</a>
-                <a href="#contact">תנאי שימוש</a>
-                <a href="#contact">הנחיות החלמה</a>
+                {LEGAL_NAV.map((item) => (
+                  <a key={item.slug} href={`/legal/${item.slug}`}>
+                    {item.label}
+                  </a>
+                ))}
               </div>
             </div>
             <div>
@@ -235,6 +239,7 @@ export default async function Page() {
       </footer>
 
       <WhatsAppFloat number={contact.whatsappNumber} message={contact.whatsappMessage} />
+      <AccessibilityWidget statementHref="/legal/accessibility" />
     </>
   );
 }

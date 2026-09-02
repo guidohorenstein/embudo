@@ -203,3 +203,154 @@ button, input, select, textarea { font: inherit; }
   .float { width: 52px; height: 52px; bottom: 18px; }
   .whatsapp { right: 14px; }
 }
+
+/* ---------------- Accesibilidad ----------------
+   Las preferencias del visitante se aplican como clases sobre <html>,
+   asi ningun componente necesita saber que existen. */
+
+html { font-size: calc(100% * var(--a11y-scale, 1)); }
+
+.accessibility { left: 24px; background: #1f4fb8; }
+.accessibility .float-label { left: 68px; }
+
+.a11y-panel {
+  position: fixed;
+  z-index: 70;
+  bottom: 96px;
+  left: 24px;
+  width: min(300px, calc(100vw - 48px));
+  background: #fff;
+  color: #16150f;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
+  padding: 18px;
+  text-align: right;
+}
+.a11y-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.a11y-head strong { font-size: 1.05rem; }
+.a11y-head button { border: 0; background: none; font-size: 1.5rem; line-height: 1; cursor: pointer; color: #6f6866; padding: 0 4px; }
+.a11y-group { border-top: 1px solid #e4dedb; padding-top: 12px; margin-top: 12px; }
+.a11y-group:first-of-type { border-top: 0; margin-top: 0; padding-top: 0; }
+.a11y-label { display: block; font-size: .82rem; font-weight: 700; margin-bottom: 8px; }
+.a11y-sizes { display: flex; gap: 6px; }
+.a11y-sizes button {
+  flex: 1; padding: 8px 0; border: 1px solid #d9d3d0; background: #faf8f7;
+  border-radius: 6px; font-size: .8rem; font-weight: 700; cursor: pointer; color: #16150f;
+}
+.a11y-sizes button.active { background: #1f4fb8; border-color: #1f4fb8; color: #fff; }
+.a11y-toggle { display: flex; align-items: center; gap: 10px; padding: 7px 0; cursor: pointer; font-size: .92rem; }
+.a11y-toggle input { width: 18px; height: 18px; accent-color: #1f4fb8; cursor: pointer; flex: none; }
+.a11y-foot { border-top: 1px solid #e4dedb; margin-top: 12px; padding-top: 12px; display: flex; justify-content: space-between; align-items: center; font-size: .85rem; }
+.a11y-reset { border: 0; background: none; color: #1f4fb8; font: inherit; cursor: pointer; text-decoration: underline; padding: 0; }
+.a11y-foot a { color: #1f4fb8; text-decoration: underline; }
+
+/* Foco siempre visible: es requisito para navegacion por teclado. */
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible {
+  outline: 3px solid #4d8dff;
+  outline-offset: 2px;
+}
+
+/* Preferencias aplicadas */
+html.a11y-links a { text-decoration: underline !important; text-underline-offset: 3px; }
+html.a11y-links .btn, html.a11y-links .nav a { outline: 1px dashed currentColor; outline-offset: 3px; }
+
+html.a11y-readable, html.a11y-readable body, html.a11y-readable * {
+  font-family: Arial, "Helvetica Neue", sans-serif !important;
+  letter-spacing: normal !important;
+}
+
+html.a11y-no-motion *, html.a11y-no-motion *::before, html.a11y-no-motion *::after {
+  transition: none !important;
+  animation: none !important;
+  scroll-behavior: auto !important;
+}
+
+html.a11y-cursor, html.a11y-cursor * {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><path d='M6 2 L6 40 L16 30 L23 45 L30 42 L23 27 L38 27 Z' fill='white' stroke='black' stroke-width='2.5'/></svg>") 4 2, auto;
+}
+
+html.a11y-contrast body { background: #000; color: #fff; }
+html.a11y-contrast .about,
+html.a11y-contrast .lead,
+html.a11y-contrast .gallery,
+html.a11y-contrast .footer,
+html.a11y-contrast .site-header { background: #000 !important; color: #fff !important; }
+html.a11y-contrast .section-copy,
+html.a11y-contrast .step p,
+html.a11y-contrast .footer-links,
+html.a11y-contrast .hero p { color: #fff !important; }
+html.a11y-contrast .lead-form { background: #000; border: 2px solid #fff; box-shadow: none; }
+html.a11y-contrast .field label,
+html.a11y-contrast .privacy { color: #fff !important; }
+html.a11y-contrast .field input,
+html.a11y-contrast .field select,
+html.a11y-contrast .field textarea { background: #000; color: #fff; border-color: #fff; }
+html.a11y-contrast .btn-primary { background: #ff0; color: #000; }
+html.a11y-contrast .eyebrow,
+html.a11y-contrast .hero h1 em,
+html.a11y-contrast .step-num,
+html.a11y-contrast .contact-mini b { color: #ff0 !important; }
+html.a11y-contrast .hero-bg,
+html.a11y-contrast .about-media,
+html.a11y-contrast .gallery-grid { filter: grayscale(1) contrast(1.4); }
+html.a11y-contrast .about-list li { border-color: #fff; }
+
+/* Enlace para saltar al contenido, primer elemento para quien navega con teclado */
+.skip-link {
+  position: absolute;
+  right: 12px;
+  top: -60px;
+  z-index: 100;
+  background: #fff;
+  color: #111;
+  padding: 10px 18px;
+  font-weight: 700;
+  border-radius: 0 0 6px 6px;
+  transition: top .15s;
+}
+.skip-link:focus { top: 0; }
+
+@media (max-width: 560px) {
+  .accessibility { left: 14px; }
+  .a11y-panel { left: 14px; bottom: 84px; }
+}
+
+/* ---------------- Paginas legales ---------------- */
+
+.legal { background: var(--paper); color: #16150f; min-height: 100vh; display: flex; flex-direction: column; }
+.legal-header { background: var(--ink); color: #fff; padding: 18px 0; }
+.legal-header-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.legal-logo { line-height: .9; }
+.legal-logo strong { display: block; font-family: var(--font-display), "Bebas Neue", sans-serif; font-size: 1.6rem; letter-spacing: .13em; }
+.legal-logo span { color: var(--red); font-size: .56rem; font-weight: 800; letter-spacing: .3em; }
+.legal-back { font-size: .9rem; color: #d4d1cb; }
+.legal-back:hover { color: #fff; }
+
+.legal-body { flex: 1; width: min(760px, calc(100% - 40px)); padding: 48px 0 72px; }
+.legal-body h1 { font-size: clamp(1.9rem, 5vw, 2.8rem); letter-spacing: -.03em; margin: 10px 0 6px; line-height: 1.1; }
+.legal-updated { color: #6f6866; font-size: .85rem; margin: 0 0 24px; }
+.legal-intro { font-size: 1.08rem; line-height: 1.7; margin: 0 0 8px; }
+.legal-body section { margin-top: 34px; }
+.legal-body h2 { font-size: 1.15rem; margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid #16150f; }
+.legal-body p { line-height: 1.8; margin: 0 0 12px; color: #3b3835; }
+.legal-body a { color: var(--red-dark); text-decoration: underline; text-underline-offset: 3px; }
+
+.legal-nav { margin-top: 48px; padding-top: 8px; }
+.legal-nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.legal-nav li a {
+  display: inline-block; padding: 9px 16px; background: #fff;
+  border: 1px solid #ddd6d2; border-radius: 6px; font-size: .9rem;
+  font-weight: 600; text-decoration: none; color: #16150f;
+}
+.legal-nav li a:hover { border-color: var(--red); color: var(--red-dark); }
+
+.legal-foot { background: var(--ink); color: #8d8a84; font-size: .84rem; padding: 22px 0; }
+.legal-foot a { color: #b9b5af; text-decoration: underline; }
+
+html.a11y-contrast .legal { background: #000; color: #fff; }
+html.a11y-contrast .legal-body p,
+html.a11y-contrast .legal-updated { color: #fff; }
+html.a11y-contrast .legal-body h2 { border-color: #fff; }
+html.a11y-contrast .legal-nav li a { background: #000; color: #fff; border-color: #fff; }
+html.a11y-contrast .legal-body a { color: #ff0; }
