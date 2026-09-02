@@ -106,6 +106,40 @@ export type SiteContent = {
     /** Opciones del desplegable de estilo en el formulario. */
     styles: L[];
   };
+  /** Textos de interfaz visibles: etiquetas de menu, formulario y pie. */
+  ui: {
+    nav: { about: L; process: L; gallery: L; contact: L };
+    headerCta: L;
+    scrollHint: L;
+    process: { eyebrow: L; title: L; intro: L; steps: { title: L; text: L }[] };
+    galleryCta: L;
+    galleryMore: L;
+    form: {
+      name: L;
+      namePlaceholder: L;
+      phone: L;
+      phonePlaceholder: L;
+      email: L;
+      style: L;
+      placement: L;
+      placementPlaceholder: L;
+      idea: L;
+      ideaPlaceholder: L;
+      consent: L;
+      submit: L;
+      sent: L;
+    };
+    contactLabels: { phone: L; email: L; address: L };
+    footer: {
+      blurb: L;
+      quickNav: L;
+      important: L;
+      talk: L;
+      rights: L;
+      credit: L;
+      bookCta: L;
+    };
+  };
   emails: {
     /** Mail automatico que recibe quien deja los datos en el formulario. */
     clientEnabled: boolean;

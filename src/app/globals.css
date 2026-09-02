@@ -362,3 +362,39 @@ html.a11y-contrast .legal-body a { color: #ff0; }
 @media (max-width: 900px) {
   .logo-img { height: 32px; }
 }
+
+/* ---- Header: logo mas grande y lado derecho ordenado ---- */
+.header-end { justify-self: end; display: flex; align-items: center; gap: 14px; }
+.lang-switch {
+  font-size: .8rem; font-weight: 800; letter-spacing: .04em;
+  border: 1px solid rgba(255, 255, 255, .32); border-radius: 4px;
+  padding: 5px 11px; color: #d4d1cb; white-space: nowrap; transition: .2s;
+}
+.lang-switch:hover { border-color: #fff; color: #fff; }
+.logo-img { width: auto; height: 54px; max-width: 100%; object-fit: contain; }
+
+@media (max-width: 900px) {
+  /* El CTA de consulta chocaba con el logo. Se saca del header: el mismo
+     boton esta en el hero y el de WhatsApp queda fijo en pantalla. */
+  .header-action { display: none; }
+  .logo-img { height: 38px; }
+  .header-end { gap: 8px; }
+  .lang-switch { padding: 4px 9px; font-size: .74rem; }
+}
+
+@media (max-width: 560px) {
+  .logo-img { height: 32px; }
+}
+
+/* ---- Galeria: ver mas trabajos ---- */
+.gallery-more { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.gallery-count { color: var(--muted); font-size: .85rem; }
+
+/* Iconos de redes: el fondo claro deja ver los colores de marca */
+.socials a {
+  width: 40px; height: 40px; display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: 8px;
+  background: rgba(255, 255, 255, .06); transition: .2s;
+}
+.socials a:hover { background: rgba(255, 255, 255, .14); border-color: rgba(255, 255, 255, .35); transform: translateY(-2px); }
+.social-text { font-weight: 800; font-size: .75rem; }

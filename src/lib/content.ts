@@ -151,6 +151,97 @@ export const DEFAULT_CONTENT: SiteContent = {
       { he: "אבסטרקט", en: "Abstract" },
     ],
   },
+  ui: {
+    nav: {
+      about: { he: "אודות", en: "About" },
+      process: { he: "התהליך", en: "Process" },
+      gallery: { he: "עבודות", en: "Work" },
+      contact: { he: "יצירת קשר", en: "Contact" },
+    },
+    headerCta: { he: "קביעת פגישת ייעוץ", en: "Book a consultation" },
+    scrollHint: { he: "SCROLL TO DISCOVER", en: "SCROLL TO DISCOVER" },
+    process: {
+      eyebrow: { he: "THE PROCESS", en: "THE PROCESS" },
+      title: { he: "מהרעיון ועד העור.", en: "From idea to skin." },
+      intro: {
+        he: "תהליך מסודר שמוריד את סימני השאלה ומשאיר מקום לדבר החשוב באמת, היצירה.",
+        en: "A clear process that takes the guesswork out and leaves room for what matters: the work itself.",
+      },
+      steps: [
+        {
+          title: { he: "שיחת היכרות", en: "First conversation" },
+          text: {
+            he: "מספרים על הרעיון, המיקום, הגודל והסגנון שאתם אוהבים.",
+            en: "Tell us the idea, the placement, the size and the style you like.",
+          },
+        },
+        {
+          title: { he: "בניית קונספט", en: "Building the concept" },
+          text: {
+            he: "מחדדים את הכיוון ומפתחים סקיצה מקורית במיוחד עבורכם.",
+            en: "We sharpen the direction and develop an original sketch made only for you.",
+          },
+        },
+        {
+          title: { he: "יום הקעקוע", en: "Tattoo day" },
+          text: {
+            he: "עוברים יחד על הסקיצה, ההתאמה לגוף ומתחילים בקצב שלכם.",
+            en: "We go over the sketch together, fit it to your body and start at your pace.",
+          },
+        },
+        {
+          title: { he: "החלמה וליווי", en: "Healing and follow-up" },
+          text: {
+            he: "מקבלים הנחיות ברורות וזמינות לכל שאלה לאורך ההחלמה.",
+            en: "You get clear aftercare instructions and we stay reachable throughout.",
+          },
+        },
+      ],
+    },
+    galleryCta: { he: "יש לכם רעיון? בואו נדבר", en: "Got an idea? Let's talk" },
+    galleryMore: { he: "לעוד עבודות", en: "Show more work" },
+    form: {
+      name: { he: "שם מלא *", en: "Full name *" },
+      namePlaceholder: { he: "איך קוראים לך?", en: "What's your name?" },
+      phone: { he: "טלפון *", en: "Phone *" },
+      phonePlaceholder: { he: "050-000-0000", en: "050-000-0000" },
+      email: { he: "אימייל", en: "Email" },
+      style: { he: "סגנון מועדף", en: "Preferred style" },
+      placement: { he: "מיקום בגוף", en: "Placement" },
+      placementPlaceholder: { he: "לדוגמה: אמה פנימית", en: "For example: inner forearm" },
+      idea: { he: "ספרו לי על הרעיון", en: "Tell us about the idea" },
+      ideaPlaceholder: {
+        he: "רעיון, גודל משוער, משמעות וכל פרט שיכול לעזור...",
+        en: "The idea, rough size, meaning, anything that helps...",
+      },
+      consent: {
+        he: "אני מאשר/ת קבלת פנייה בנוגע לבקשה שלי ומסכים/ה למדיניות הפרטיות.",
+        en: "I agree to be contacted about my request and accept the privacy policy.",
+      },
+      submit: { he: "שליחת פרטים וקביעת שיחה ←", en: "Send details and book a call →" },
+      sent: {
+        he: "תודה, הפרטים התקבלו. נחזור אליכם בהקדם.",
+        en: "Thanks, we got your details. We'll be in touch soon.",
+      },
+    },
+    contactLabels: {
+      phone: { he: "טלפון", en: "Phone" },
+      email: { he: "אימייל", en: "Email" },
+      address: { he: "כתובת", en: "Address" },
+    },
+    footer: {
+      blurb: {
+        he: "סטודיו לקעקועים ופירסינג בעיצוב אישי, עם תהליך מדויק, יחס אנושי ואמנות שנשארת.",
+        en: "A custom tattoo and piercing studio: a precise process, a human approach, and art that lasts.",
+      },
+      quickNav: { he: "ניווט מהיר", en: "Quick links" },
+      important: { he: "פרטים חשובים", en: "Good to know" },
+      talk: { he: "דברו איתנו", en: "Get in touch" },
+      rights: { he: "כל הזכויות שמורות.", en: "All rights reserved." },
+      credit: { he: "עיצוב והקמה: EX Advertising", en: "Design and build: EX Advertising" },
+      bookCta: { he: "קביעת ייעוץ", en: "Book a consultation" },
+    },
+  },
   emails: {
     clientEnabled: true,
     clientSubject: {

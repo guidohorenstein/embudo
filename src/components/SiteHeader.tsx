@@ -9,11 +9,15 @@ export default function SiteHeader({
   name,
   tagline,
   logo,
+  nav,
+  cta,
 }: {
   lang: Lang;
   name: string;
   tagline: string;
   logo?: string;
+  nav: { about: string; process: string; gallery: string; contact: string };
+  cta: string;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -23,10 +27,10 @@ export default function SiteHeader({
   };
 
   const links = [
-    { href: "#about", label: t(UI.nav.about, lang) },
-    { href: "#process", label: t(UI.nav.process, lang) },
-    { href: "#gallery", label: t(UI.nav.gallery, lang) },
-    { href: "#contact", label: t(UI.nav.contact, lang) },
+    { href: "#about", label: nav.about },
+    { href: "#process", label: nav.process },
+    { href: "#gallery", label: nav.gallery },
+    { href: "#contact", label: nav.contact },
   ];
 
   const other: Lang = lang === "he" ? "en" : "he";
@@ -74,7 +78,7 @@ export default function SiteHeader({
             {t(UI.langSwitch, lang)}
           </a>
           <a className="header-action" href="#contact" onClick={() => track("cta_click")}>
-            {t(UI.headerCta, lang)}
+            {cta}
           </a>
         </div>
       </div>

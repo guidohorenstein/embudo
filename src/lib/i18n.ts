@@ -84,6 +84,9 @@ export const UI = {
   },
 
   galleryCta: { he: "יש לכם רעיון? בואו נדבר", en: "Got an idea? Let's talk" },
+  galleryMore: { he: "לעוד עבודות", en: "Show more work" },
+  galleryAll: { he: "אלו כל העבודות", en: "That is all of the work" },
+  galleryCount: { he: "מוצגות {shown} מתוך {total}", en: "Showing {shown} of {total}" },
   lightboxAria: { he: "תצוגת תמונה מוגדלת", en: "Enlarged image view" },
   close: { he: "סגירה", en: "Close" },
 

@@ -7,6 +7,7 @@ import Tracking from "@/components/Tracking";
 import CtaLink from "@/components/CtaLink";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
+import SocialIcon from "@/components/SocialIcon";
 import { legalNav } from "@/lib/legal";
 import { dirOf, pathFor, t, UI, type Lang } from "@/lib/i18n";
 
@@ -20,7 +21,7 @@ import { dirOf, pathFor, t, UI, type Lang } from "@/lib/i18n";
  */
 export default async function Landing({ lang }: { lang: Lang }) {
   const content = await getContent();
-  const { brand, hero, about, gallery, contact, tracking, form } = content;
+  const { brand, hero, about, gallery, contact, tracking, form, ui } = content;
   const telHref = `tel:${contact.phone.replace(/[^\d+]/g, "")}`;
   const legalHref = (slug: string) => pathFor(lang, `legal/${slug}`);
 
@@ -30,7 +31,19 @@ export default async function Landing({ lang }: { lang: Lang }) {
       <a className="skip-link" href="#top">
         {t(UI.skip, lang)}
       </a>
-      <SiteHeader lang={lang} name={brand.name} tagline={brand.tagline} logo={brand.headerLogo} />
+      <SiteHeader
+        lang={lang}
+        name={brand.name}
+        tagline={brand.tagline}
+        logo={brand.headerLogo}
+        nav={{
+          about: t(ui.nav.about, lang),
+          process: t(ui.nav.process, lang),
+          gallery: t(ui.nav.gallery, lang),
+          contact: t(ui.nav.contact, lang),
+        }}
+        cta={t(ui.headerCta, lang)}
+      />
 
       <main>
         <section className="hero" id="top">
@@ -66,7 +79,7 @@ export default async function Landing({ lang }: { lang: Lang }) {
               </div>
             </div>
           </div>
-          <span className="scroll-hint">{t(UI.scrollHint, lang)}</span>
+          <span className="scroll-hint">{t(ui.scrollHint, lang)}</span>
         </section>
 
         <section className="about" id="about">
@@ -115,13 +128,13 @@ export default async function Landing({ lang }: { lang: Lang }) {
           <div className="container">
             <div className="process-head">
               <div>
-                <span className="eyebrow">{t(UI.process.eyebrow, lang)}</span>
-                <h2 className="section-title">{t(UI.process.title, lang)}</h2>
+                <span className="eyebrow">{t(ui.process.eyebrow, lang)}</span>
+                <h2 className="section-title">{t(ui.process.title, lang)}</h2>
               </div>
-              <p className="section-copy">{t(UI.process.intro, lang)}</p>
+              <p className="section-copy">{t(ui.process.intro, lang)}</p>
             </div>
             <div className="steps">
-              {UI.process.steps.map((step, index) => (
+              {ui.process.steps.map((step, index) => (
                 <article className="step" key={index}>
                   <span className="step-num">{String(index + 1).padStart(2, "0")}</span>
                   <h3>{t(step.title, lang)}</h3>
@@ -138,6 +151,8 @@ export default async function Landing({ lang }: { lang: Lang }) {
           title={t(gallery.title, lang)}
           intro={t(gallery.intro, lang)}
           items={gallery.items}
+          ctaLabel={t(ui.galleryCta, lang)}
+          moreLabel={t(ui.galleryMore, lang)}
         />
 
         <section className="lead" id="contact">
@@ -148,17 +163,23 @@ export default async function Landing({ lang }: { lang: Lang }) {
               <p className="section-copy">{t(contact.intro, lang)}</p>
               <div className="contact-mini">
                 <a href={telHref}>
-                  <b>{t(UI.contactLabels.phone, lang)}</b> {contact.phone}
+                  <b>{t(ui.contactLabels.phone, lang)}</b> {contact.phone}
                 </a>
                 <a href={`mailto:${contact.email}`}>
-                  <b>{t(UI.contactLabels.email, lang)}</b> {contact.email}
+                  <b>{t(ui.contactLabels.email, lang)}</b> {contact.email}
                 </a>
                 <span>
-                  <b>{t(UI.contactLabels.address, lang)}</b> {t(contact.address, lang)}
+                  <b>{t(ui.contactLabels.address, lang)}</b> {t(contact.address, lang)}
                 </span>
               </div>
             </div>
-            <LeadForm lang={lang} styles={form.styles.map((style) => t(style, lang))} />
+            <LeadForm
+              lang={lang}
+              styles={form.styles.map((style) => t(style, lang))}
+              labels={Object.fromEntries(
+                Object.entries(ui.form).map(([clave, valor]) => [clave, t(valor, lang)]),
+              ) as Record<string, string>}
+            />
           </div>
         </section>
       </main>
@@ -179,26 +200,26 @@ export default async function Landing({ lang }: { lang: Lang }) {
               ) : (
                 <strong>{brand.name}</strong>
               )}
-              <p>{t(UI.footer.blurb, lang)}</p>
+              <p>{t(ui.footer.blurb, lang)}</p>
               <div className="socials">
                 {contact.socials.map((social) => (
                   <a key={social.id} href={social.url} target="_blank" rel="noopener" aria-label={social.label}>
-                    {social.label}
+                    <SocialIcon url={social.url} label={social.label} />
                   </a>
                 ))}
               </div>
             </div>
             <div>
-              <h4>{t(UI.footer.quickNav, lang)}</h4>
+              <h4>{t(ui.footer.quickNav, lang)}</h4>
               <div className="footer-links">
-                <a href="#about">{t(UI.nav.about, lang)}</a>
-                <a href="#process">{t(UI.nav.process, lang)}</a>
-                <a href="#gallery">{t(UI.nav.gallery, lang)}</a>
-                <a href="#contact">{t(UI.footer.bookCta, lang)}</a>
+                <a href="#about">{t(ui.nav.about, lang)}</a>
+                <a href="#process">{t(ui.nav.process, lang)}</a>
+                <a href="#gallery">{t(ui.nav.gallery, lang)}</a>
+                <a href="#contact">{t(ui.footer.bookCta, lang)}</a>
               </div>
             </div>
             <div>
-              <h4>{t(UI.footer.important, lang)}</h4>
+              <h4>{t(ui.footer.important, lang)}</h4>
               <div className="footer-links">
                 {legalNav(lang).map((item) => (
                   <a key={item.slug} href={legalHref(item.slug)}>
@@ -208,7 +229,7 @@ export default async function Landing({ lang }: { lang: Lang }) {
               </div>
             </div>
             <div>
-              <h4>{t(UI.footer.talk, lang)}</h4>
+              <h4>{t(ui.footer.talk, lang)}</h4>
               <div className="footer-links">
                 <a href={telHref}>{contact.phone}</a>
                 <a href={`mailto:${contact.email}`}>{contact.email}</a>
@@ -219,9 +240,9 @@ export default async function Landing({ lang }: { lang: Lang }) {
           </div>
           <div className="footer-bottom">
             <span>
-              © {new Date().getFullYear()} {brand.fullName}. {t(UI.footer.rights, lang)}
+              © {new Date().getFullYear()} {brand.fullName}. {t(ui.footer.rights, lang)}
             </span>
-            <span>{t(UI.footer.credit, lang)}</span>
+            <span>{t(ui.footer.credit, lang)}</span>
           </div>
         </div>
       </footer>

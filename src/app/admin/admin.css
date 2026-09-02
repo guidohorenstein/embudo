@@ -304,3 +304,8 @@ table.data a.row-link { font-weight: 700; }
 .lang-tabs-hint { font-size: .82rem; color: var(--a-muted); flex: 1 1 260px; }
 
 @media (max-width: 620px) { .lang-tabs { flex-direction: column; align-items: stretch; } }
+
+.panel h3.sub { font-size: .9rem; margin: 22px 0 10px; padding-bottom: 7px; border-bottom: 1px solid var(--a-line); color: var(--a-muted); text-transform: uppercase; letter-spacing: .05em; }
+.field-hint { display: block; font-weight: 400; font-style: normal; font-size: .76rem; color: var(--a-muted); margin-top: 2px; }
+.field-fallback { display: block; font-style: normal; font-size: .74rem; color: #9a6508; margin-top: 4px; }
+.thumb-pos { font-family: var(--mono, monospace); font-size: .72rem; color: var(--a-muted); font-weight: 700; }

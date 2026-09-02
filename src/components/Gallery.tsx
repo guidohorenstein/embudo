@@ -6,20 +6,31 @@ import { track } from "@/lib/client-tracking";
 import { t, UI, type Lang } from "@/lib/i18n";
 import type { GalleryItem } from "@/lib/types";
 
+const PRIMERAS = 6;
+
 export default function Gallery({
   lang,
   eyebrow,
   title,
   intro,
   items,
+  ctaLabel,
+  moreLabel,
 }: {
   lang: Lang;
   eyebrow: string;
   title: string;
   intro: string;
   items: GalleryItem[];
+  ctaLabel: string;
+  moreLabel: string;
 }) {
   const [active, setActive] = useState<GalleryItem | null>(null);
+  // Se muestran las primeras y el resto se revela a pedido: una galeria muy larga
+  // empuja el formulario fuera de la pantalla y baja la conversion.
+  const [visibleCount, setVisibleCount] = useState(PRIMERAS);
+  const visibles = items.slice(0, visibleCount);
+  const quedan = items.length - visibles.length;
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -41,7 +52,7 @@ export default function Gallery({
         </div>
 
         <div className="gallery-grid">
-          {items.map((item, index) => (
+          {visibles.map((item, index) => (
             <button key={item.id} className="gallery-item" type="button" onClick={() => setActive(item)}>
               {item.image ? (
                 <Image
@@ -58,8 +69,24 @@ export default function Gallery({
         </div>
 
         <div className="gallery-more">
-          <a className="btn btn-outline" href="#contact" onClick={() => track("cta_click")}>
-            {t(UI.galleryCta, lang)}
+          {quedan > 0 ? (
+            <>
+              <button
+                className="btn btn-outline"
+                type="button"
+                onClick={() => setVisibleCount((n) => n + PRIMERAS)}
+              >
+                {moreLabel} ({quedan})
+              </button>
+              <span className="gallery-count">
+                {t(UI.galleryCount, lang)
+                  .replace("{shown}", String(visibles.length))
+                  .replace("{total}", String(items.length))}
+              </span>
+            </>
+          ) : null}
+          <a className="btn btn-primary" href="#contact" onClick={() => track("cta_click")}>
+            {ctaLabel}
           </a>
         </div>
       </div>
