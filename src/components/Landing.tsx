@@ -163,7 +163,7 @@ export default async function Landing({ lang }: { lang: Lang }) {
               <p className="section-copy">{t(contact.intro, lang)}</p>
               <div className="contact-mini">
                 <a href={telHref}>
-                  <b>{t(ui.contactLabels.phone, lang)}</b> {contact.phone}
+                  <b>{t(ui.contactLabels.phone, lang)}</b> <bdi>{contact.phone}</bdi>
                 </a>
                 <a href={`mailto:${contact.email}`}>
                   <b>{t(ui.contactLabels.email, lang)}</b> {contact.email}
@@ -238,7 +238,7 @@ export default async function Landing({ lang }: { lang: Lang }) {
             <div>
               <h4>{t(ui.footer.talk, lang)}</h4>
               <div className="footer-links">
-                <a href={telHref}>{contact.phone}</a>
+                <a href={telHref}><bdi>{contact.phone}</bdi></a>
                 <a href={`mailto:${contact.email}`}>{contact.email}</a>
                 {contact.mapUrl ? (
                   <a href={contact.mapUrl} target="_blank" rel="noopener">
@@ -263,7 +263,6 @@ export default async function Landing({ lang }: { lang: Lang }) {
             <span>
               © {new Date().getFullYear()} {brand.fullName}. {t(ui.footer.rights, lang)}
             </span>
-            <span>{t(ui.footer.credit, lang)}</span>
           </div>
         </div>
       </footer>

@@ -139,7 +139,6 @@ export type SiteContent = {
       important: L;
       talk: L;
       rights: L;
-      credit: L;
       bookCta: L;
       quoteLabel: L;
     };

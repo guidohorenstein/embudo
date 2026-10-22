@@ -3,7 +3,7 @@ import { z } from "zod";
 import { sql } from "@/lib/db";
 import { getContent } from "@/lib/content";
 import { sendClientEmail, sendLeadEmail } from "@/lib/mail";
-import { DEFAULT_LANG, isLang, type Lang } from "@/lib/i18n";
+import { DEFAULT_LANG, isLang, t, UI, type Lang } from "@/lib/i18n";
 import type { Lead } from "@/lib/types";
 
 export const runtime = "nodejs";
@@ -62,12 +62,14 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ ok: false, error: "בקשה לא תקינה" }, { status: 400 });
+    return NextResponse.json({ ok: false, error: t(UI.form.errorInvalidRequest, DEFAULT_LANG) }, { status: 400 });
   }
 
+  const requestedLang = typeof body === "object" && body !== null && "lang" in body ? body.lang : undefined;
+  const lang: Lang = typeof requestedLang === "string" && isLang(requestedLang) ? requestedLang : DEFAULT_LANG;
   const parsed = schema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ ok: false, error: "אנא מלאו שם וטלפון תקינים." }, { status: 400 });
+    return NextResponse.json({ ok: false, error: t(UI.form.errorInvalidFields, lang) }, { status: 400 });
   }
 
   const data = parsed.data;
@@ -77,7 +79,7 @@ export async function POST(request: Request) {
   try {
     if (await rateLimited(ip)) {
       return NextResponse.json(
-        { ok: false, error: "יותר מדי בקשות. נסו שוב מאוחר יותר." },
+        { ok: false, error: t(UI.form.errorRateLimit, lang) },
         { status: 429 },
       );
     }
@@ -85,9 +87,6 @@ export async function POST(request: Request) {
     // Un reenvio identico se responde como exito: para la persona el mensaje
     // ya llego, y no ensucia el panel con duplicados.
     if (await isDuplicate(data.phone, data.name)) return NextResponse.json({ ok: true });
-
-    // Idioma en el que navegaba: define en cual se le responde.
-    const lang: Lang = data.lang && isLang(data.lang) ? data.lang : DEFAULT_LANG;
 
     const [lead] = await sql<Lead[]>`
       insert into leads
@@ -120,15 +119,21 @@ export async function POST(request: Request) {
       wantsClientEmail ? sendClientEmail(lead, content, lang) : Promise.resolve(null),
     ]);
 
-    await sql`
-      update leads
-      set mail_status        = ${result.ok ? "sent" : "failed"},
-          mail_error         = ${result.ok ? null : (result.error ?? null)},
-          client_mail_status = ${clientResult ? (clientResult.ok ? "sent" : "failed") : "skipped"},
-          client_mail_error  = ${clientResult && !clientResult.ok ? (clientResult.error ?? null) : null},
-          updated_at         = now()
-      where id = ${lead.id}
-    `;
+    try {
+      await sql`
+        update leads
+        set mail_status        = ${result.ok ? "sent" : "failed"},
+            mail_error         = ${result.ok ? null : (result.error ?? null)},
+            client_mail_status = ${clientResult ? (clientResult.ok ? "sent" : "failed") : "skipped"},
+            client_mail_error  = ${clientResult && !clientResult.ok ? (clientResult.error ?? null) : null},
+            updated_at         = now()
+        where id = ${lead.id}
+      `;
+    } catch (error) {
+      // La consulta ya esta guardada y los envios se intentaron. No pedir al
+      // visitante que reenvie si solo fallo el registro del estado del mail.
+      console.error("No se pudo actualizar el estado del mail:", error);
+    }
 
     if (!result.ok) console.error("El lead se guardo pero el mail al estudio fallo:", result.error);
     if (clientResult && !clientResult.ok) {
@@ -140,7 +145,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Error guardando el lead:", error);
     return NextResponse.json(
-      { ok: false, error: "אירעה שגיאה בשמירת הפנייה. נסו שוב או התקשרו אלינו." },
+      { ok: false, error: t(UI.form.errorSaving, lang) },
       { status: 500 },
     );
   }

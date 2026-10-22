@@ -242,7 +242,6 @@ export default function ContentEditor({ initial, initialVersion }: { initial: Si
         <div className="grid3">
           <Text label="Book link" value={content.ui.footer.bookCta} lang={lang} onChange={(v) => patch((d) => void (d.ui.footer.bookCta[lang] = v))} />
           <Text label="Rights notice" value={content.ui.footer.rights} lang={lang} onChange={(v) => patch((d) => void (d.ui.footer.rights[lang] = v))} />
-          <Text label="Credit" value={content.ui.footer.credit} lang={lang} onChange={(v) => patch((d) => void (d.ui.footer.credit[lang] = v))} />
         </div>
       </Block>
 

@@ -114,6 +114,10 @@ export const UI = {
     sent: { he: "תודה, הפרטים התקבלו. נחזור אליכם בהקדם.", en: "Thanks, we got your details. We'll be in touch soon." },
     errorGeneric: { he: "אירעה שגיאה. נסו שוב או התקשרו אלינו.", en: "Something went wrong. Please try again or call us." },
     errorNetwork: { he: "אין חיבור לשרת. נסו שוב בעוד רגע.", en: "No connection. Please try again in a moment." },
+    errorInvalidRequest: { he: "בקשה לא תקינה", en: "Invalid request." },
+    errorInvalidFields: { he: "אנא מלאו שם וטלפון תקינים.", en: "Please enter a valid name and phone number." },
+    errorRateLimit: { he: "יותר מדי בקשות. נסו שוב מאוחר יותר.", en: "Too many requests. Please try again later." },
+    errorSaving: { he: "אירעה שגיאה בשמירת הפנייה. נסו שוב או התקשרו אלינו.", en: "We couldn't save your inquiry. Please try again or call us." },
     honeypot: { he: "אתר", en: "Website" },
   },
 
@@ -132,7 +136,6 @@ export const UI = {
     important: { he: "פרטים חשובים", en: "Good to know" },
     talk: { he: "דברו איתנו", en: "Get in touch" },
     rights: { he: "כל הזכויות שמורות.", en: "All rights reserved." },
-    credit: { he: "עיצוב והקמה: Guido Horenstein", en: "Design and build: Guido Horenstein" },
     bookCta: { he: "קביעת ייעוץ", en: "Book a consultation" },
   },
 

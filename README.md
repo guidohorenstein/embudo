@@ -56,6 +56,31 @@ node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 
 ## 2. Base de datos
 
+### Si el proyecto de Supabase fue eliminado
+
+El error `tenant/user ... not found` indica que la conexión configurada ya no
+encuentra el proyecto/usuario. El formulario guarda la consulta en Postgres antes
+de enviar los correos, y las fotos subidas desde el panel viven en la tabla
+`media`: ambos necesitan una base disponible.
+
+1. Restaurar el proyecto y su respaldo si existe, o crear una base nueva.
+2. Actualizar `DATABASE_URL` en `.env.local` y en las variables del proyecto de
+   Vercel. No compartir la contraseña por chat ni subirla al repositorio.
+3. Ejecutar `npm run db:migrate` para crear/actualizar las tablas sin borrar datos.
+4. Si la base es nueva, recuperar el contenido y las fotos desde un respaldo o
+   volver a cargarlos desde el panel. La migración crea las tablas; no recupera
+   archivos ni consultas de una base eliminada.
+5. Volver a desplegar y probar una consulta en cada idioma, comprobando su
+   registro en el panel y la entrega de los correos.
+
+`node --env-file=.env.local scripts/diagnose-services.mjs` permite revisar la
+conexión, las tablas, las referencias de las imágenes y los dominios de Resend
+sin modificar datos ni enviar correos.
+
+Los datos anteriores de teléfono, WhatsApp y dirección se actualizan al leer
+contenido guardado con esos valores; las demás ediciones del panel se conservan.
+El footer ya no muestra ni permite editar un crédito de diseño.
+
 Cualquier Postgres sirve. El código detecta solo si la cadena apunta a un pooler en modo
 *transaction* (Supabase/Supavisor, PgBouncer) y desactiva los prepared statements, que esos
 poolers no soportan.

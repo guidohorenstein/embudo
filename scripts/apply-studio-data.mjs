@@ -23,11 +23,12 @@ const DATOS = {
     title: "Zen House Tattoo & Piercing Studio | קעקועים ופירסינג",
   },
   contact: {
-    phone: "054-750-5670",
+    phone: "0515781870",
     email: "daginstruments@gmail.com",
-    address: "הצאלון 67, שדה יצחק",
+    address: { he: "שדה יצחק", en: "Sede Itzhak" },
+    mapUrl: "https://maps.app.goo.gl/uzXdguH5oDgYAsC76",
     hours: "ראשון עד שבת, 10:00-22:00",
-    whatsappNumber: "972547505670",
+    whatsappNumber: "972515781870",
     notifyEmails: "daginstruments@gmail.com",
   },
   about: {

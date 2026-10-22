@@ -75,32 +75,11 @@ export const DEFAULT_CONTENT: SiteContent = {
         alt: { he: "קעקוע שחור מפורט", en: "Detailed blackwork tattoo" },
       },
       {
-        id: "g2",
-        image:
-          "https://images.unsplash.com/photo-1590246814883-57c511794e5b?auto=format&fit=crop&w=800&q=88",
-        caption: { he: "FINE LINE", en: "FINE LINE" },
-        alt: { he: "קעקוע קווי", en: "Fine line tattoo" },
-      },
-      {
         id: "g3",
         image:
           "https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?auto=format&fit=crop&w=800&q=88",
         caption: { he: "REALISM", en: "REALISM" },
         alt: { he: "קעקוע על הזרוע", en: "Tattoo on the arm" },
-      },
-      {
-        id: "g4",
-        image:
-          "https://images.unsplash.com/photo-1572197364459-bf17e8c79e4b?auto=format&fit=crop&w=800&q=88",
-        caption: { he: "DETAIL", en: "DETAIL" },
-        alt: { he: "פרט קעקוע", en: "Tattoo detail" },
-      },
-      {
-        id: "g5",
-        image:
-          "https://images.unsplash.com/photo-1521369421116-0f6115fcb5be?auto=format&fit=crop&w=800&q=88",
-        caption: { he: "IN PROGRESS", en: "IN PROGRESS" },
-        alt: { he: "עבודת קעקוע בסטודיו", en: "Tattoo work in the studio" },
       },
     ],
   },
@@ -111,11 +90,11 @@ export const DEFAULT_CONTENT: SiteContent = {
       he: "השאירו פרטים וספרו בקצרה מה יש לכם בראש. נחזור אליכם לשיחת היכרות ללא התחייבות.",
       en: "Leave your details and tell us briefly what you have in mind. We'll get back to you for a no-obligation chat.",
     },
-    phone: "054-750-5670",
+    phone: "0515781870",
     email: "daginstruments@gmail.com",
-    address: { he: "הצאלון 67, שדה יצחק", en: "67 Ha'tseelon st, Sede Itzhak" },
+    address: { he: "שדה יצחק", en: "Sede Itzhak" },
     hours: { he: "ראשון עד שבת, 10:00-22:00", en: "Sunday to Saturday, 10:00-22:00" },
-    whatsappNumber: "972547505670",
+    whatsappNumber: "972515781870",
     whatsappMessage: {
       he: "היי, הגעתי מהאתר ואשמח לשמוע פרטים על קעקוע.",
       en: "Hi, I came from the website and I'd like to hear more about getting a tattoo.",
@@ -239,7 +218,6 @@ export const DEFAULT_CONTENT: SiteContent = {
       important: { he: "פרטים חשובים", en: "Good to know" },
       talk: { he: "דברו איתנו", en: "Get in touch" },
       rights: { he: "כל הזכויות שמורות.", en: "All rights reserved." },
-      credit: { he: "עיצוב והקמה: Guido Horenstein", en: "Design and build: Guido Horenstein" },
       bookCta: { he: "קביעת ייעוץ", en: "Book a consultation" },
       quoteLabel: { he: "מחשבון מחיר לקעקוע ←", en: "Tattoo price estimate →" },
     },
@@ -292,7 +270,7 @@ function merge<T>(base: T, override: unknown): T {
       result[key] = value.map((item) => merge(current[0], item));
       continue;
     }
-    result[key] = isObject(current) && isObject(value) ? merge(current, value) : value;
+    result[key] = isObject(current) ? merge(current, value) : value;
   }
   return result as T;
 }
@@ -303,7 +281,23 @@ export const getContent = cache(async function getContent(): Promise<SiteContent
   try {
     const rows = await sql<{ value: unknown }[]>`select value from content where key = 'site'`;
     if (!rows.length) return DEFAULT_CONTENT;
-    return merge(DEFAULT_CONTENT, rows[0].value);
+    const content = merge(DEFAULT_CONTENT, rows[0].value);
+    // Actualiza estos datos en contenido anterior sin pisar otras ediciones del panel.
+    if (content.contact.phone.replace(/\D/g, "") === "0547505670") {
+      content.contact.phone = DEFAULT_CONTENT.contact.phone;
+    }
+    if (content.contact.whatsappNumber.replace(/\D/g, "") === "972547505670") {
+      content.contact.whatsappNumber = DEFAULT_CONTENT.contact.whatsappNumber;
+    }
+    if (content.contact.address.he === "הצאלון 67, שדה יצחק") {
+      content.contact.address.he = DEFAULT_CONTENT.contact.address.he;
+      content.contact.mapUrl = DEFAULT_CONTENT.contact.mapUrl;
+    }
+    if (content.contact.address.en === "67 Ha'tseelon st, Sede Itzhak") {
+      content.contact.address.en = DEFAULT_CONTENT.contact.address.en;
+      content.contact.mapUrl = DEFAULT_CONTENT.contact.mapUrl;
+    }
+    return content;
   } catch (error) {
     console.error("No se pudo leer el contenido, uso los valores por defecto:", error);
     return DEFAULT_CONTENT;
